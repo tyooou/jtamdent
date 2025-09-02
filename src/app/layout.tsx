@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { interTight } from "./font";
 import "./globals.css";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-poppins",
-});
+import PageTransition from "./components/PageTransition";
+import path from "path";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.variable}>{children}</body>
+      <body className={interTight.className}>
+        <PageTransition>{children}</PageTransition>
+      </body>
     </html>
   );
 }

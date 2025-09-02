@@ -23,35 +23,44 @@ export default function NavigationBar() {
   return (
     <div className="w-full h-28 bg-black">
       <nav
-        className={`bg-black fixed top-0 left-1/2 z-50 transition-all duration-200`}
+        className="bg-black fixed top-0 left-1/2 z-50 transition-all duration-200 overflow-hidden"
         style={{
           transform: "translateX(-50%)",
           width: "100%",
-          height: scrolled ? "64px" : "112px", // 10% and 8% can be unpredictable, use px for consistency
+          height: scrolled ? "64px" : "112px",
           transition: "height 0.2s",
         }}
       >
-        <ul className="flex space-x-4 justify-center items-center h-full">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0))",
+            width: "100%",
+            height: "100%",
+            zIndex: 1,
+          }}
+        ></div>
+        <ul className="flex space-x-4 justify-center items-center h-full relative z-10">
           <li>
             <Logo />
           </li>
-
           <li>
             <NavigationLink text="home" href="/" />
           </li>
-
+          <li>
+            <NavigationLink text="about" href="/about" />
+          </li>
           <NavigationDropdown
             label="photography"
             options={["People", "Macro", "Design"]}
             onSelect={handleSelect}
           />
-
           <NavigationDropdown
             label="videography"
             options={["Interview", "Promotional"]}
             onSelect={handleSelect}
           />
-
           <li>
             <NavigationLink text="contact" href="/contact" />
           </li>

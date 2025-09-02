@@ -10,6 +10,7 @@
     "payload": "node payload-server.js"
   },
   "dependencies": {
+    "framer-motion": "^12.23.12",
     "lucide-react": "^0.542.0",
     "next": "15.4.5",
     "payload": "^3.54.0",

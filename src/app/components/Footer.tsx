@@ -37,15 +37,15 @@ export default function Footer() {
           <div className="flex space-x-2">
             <a
               href="https://www.instagram.com/jtamdent/"
-              className="flex items-center"
+              className="flex items-center text-gray-500 hover:text-gray-300 transition-colors"
             >
-              <Instagram name="instagram" className="w-4 h-4" color="#6B7280" />
+              <Instagram name="instagram" className="w-4 h-4" />
             </a>
             <a
               href="https://www.linkedin.com/in/jaidyntam/"
-              className="flex items-center"
+              className="flex items-center text-gray-500 hover:text-gray-300 transition-colors"
             >
-              <Linkedin name="linkedin" className="w-4 h-4" color="#6B7280" />
+              <Linkedin name="linkedin" className="w-4 h-4" />
             </a>
           </div>
         </div>
