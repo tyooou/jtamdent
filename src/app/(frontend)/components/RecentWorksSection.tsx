@@ -43,7 +43,7 @@ export default function RecentWorksSection() {
     },
   ];
 
-  const cardWidth = 1000; // px
+  const cardWidth = 800; // px
   const gap = 16; // px
 
   // Get container width

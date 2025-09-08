@@ -9,11 +9,15 @@ export default function AboutSection() {
         />
       </div>
       <div>
-        <h1 className="text-3xl font-bold">about jaidyn tam</h1>
-        <p className="mt-4 text-lg max-w-2xl">
-          jaidyn tam is a photographer with over seven years of experience and a
-          background in dentistry. He specialises in creating high-quality
-          dental content designed for marketing and professional branding.
+        <h1 className="text-5xl font-bold">About Jaidyn Tam.</h1>
+        <p className="mt-6 text-lg max-w-2xl">
+          <span className="font-bold">Jaidyn Tam</span> is a current dental
+          student and aspiring content specialist with over seven years of
+          experience and a background in dentistry. He specialises in{" "}
+          <span className="font-bold">
+            creating high-quality dental content
+          </span>{" "}
+          designed for marketing and professional branding.
           <br />
           <br /> His work focuses on producing compelling visuals that
           strengthen the online presence of dental practices and highlight their

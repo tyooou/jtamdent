@@ -21,12 +21,12 @@ export default function NavigationBar() {
   }, []);
 
   return (
-    <div className="w-full h-28 bg-black">
+    <div className="h-28">
       <nav
-        className="bg-black fixed top-0 left-1/2 z-50 transition-all duration-200 overflow-hidden"
+        className="bg-black fixed top-0 left-1/2 z-50 transition-all duration-200 overflow-hidden rounded-full"
         style={{
           transform: "translateX(-50%)",
-          width: "100%",
+          width: "50%",
           height: scrolled ? "64px" : "112px",
           transition: "height 0.2s",
         }}

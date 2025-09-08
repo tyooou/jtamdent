@@ -3,7 +3,13 @@ import { Instagram, Linkedin } from "lucide-react";
 export default function Footer() {
   const localDate = new Date().getFullYear();
   return (
-    <footer className="bg-black p-4 flex flex-col pl-50 pr-50 pt-25 text-sm bottom-0 w-full">
+    <footer className="bg-black p-4 flex flex-col pl-50 pr-50 pt-10 text-sm bottom-0 w-full">
+      <div className="mb-4 text-white flex items-center space-x-4 mb-15">
+        <h1 className="font-bold text-5xl">jtamdent</h1>
+        <p className="text-base">
+          Dental Student <br /> & Content Creator
+        </p>
+      </div>
       <div className="flex text-white space-x-10 md:space-x-20 lg:space-x-40 mb-4 flex-wrap">
         <div>
           <h1 className="mb-2">quick links</h1>

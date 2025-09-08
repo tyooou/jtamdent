@@ -6,12 +6,16 @@ import Section from "./components/Section";
 import MetricSection from "./components/MetricSection";
 import Metric from "./components/Metric";
 import RecentWorksSection from "./components/RecentWorksSection";
+import AboutLanding from "./components/AboutLanding";
 
 export default function Home() {
   return (
     <div>
       <NavigationBar />
       <LandingVideo />
+      <Section>
+        <AboutLanding />
+      </Section>
       <Section>
         <RecentWorksSection />
       </Section>
