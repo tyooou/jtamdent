@@ -21,12 +21,12 @@ export default function NavigationBar() {
   }, []);
 
   return (
-    <div className="h-28">
+    <div className="h-28 bg-black">
       <nav
-        className="bg-black fixed top-0 left-1/2 z-50 transition-all duration-200 overflow-hidden rounded-full"
+        className="bg-black fixed top-0 left-1/2 z-50 transition-all duration-200 overflow-hidden"
         style={{
           transform: "translateX(-50%)",
-          width: "50%",
+          width: "100%",
           height: scrolled ? "64px" : "112px",
           transition: "height 0.2s",
         }}
@@ -43,26 +43,19 @@ export default function NavigationBar() {
         ></div>
         <ul className="flex space-x-4 justify-center items-center h-full relative z-10">
           <li>
+            <NavigationLink text="about" href="/about" />
+          </li>
+          <li>
+            <NavigationLink text="contact" href="/contact" />
+          </li>
+          <li>
             <Logo />
           </li>
           <li>
-            <NavigationLink text="home" href="/" />
+            <NavigationLink text="photography" href="/photography" />
           </li>
           <li>
-            <NavigationLink text="about" href="/about" />
-          </li>
-          <NavigationDropdown
-            label="photography"
-            options={["People", "Macro", "Design"]}
-            onSelect={handleSelect}
-          />
-          <NavigationDropdown
-            label="videography"
-            options={["Interview", "Promotional"]}
-            onSelect={handleSelect}
-          />
-          <li>
-            <NavigationLink text="contact" href="/contact" />
+            <NavigationLink text="videography" href="/videography" />
           </li>
         </ul>
       </nav>

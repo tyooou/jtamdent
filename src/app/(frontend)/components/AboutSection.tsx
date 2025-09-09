@@ -9,23 +9,23 @@ export default function AboutSection() {
         />
       </div>
       <div>
-        <h1 className="text-5xl font-bold">About Jaidyn Tam.</h1>
+        <h1 className="text-5xl font-bold">Hey, I'm Jaidyn Tam.</h1>
         <p className="mt-6 text-lg max-w-2xl">
-          <span className="font-bold">Jaidyn Tam</span> is a current dental
-          student and aspiring content specialist with over seven years of
-          experience and a background in dentistry. He specialises in{" "}
+          I'm a current dental student and aspiring content specialist with over
+          seven years of experience and a background in dentistry. I specialises
+          in{" "}
           <span className="font-bold">
             creating high-quality dental content
           </span>{" "}
           designed for marketing and professional branding.
           <br />
-          <br /> His work focuses on producing compelling visuals that
-          strengthen the online presence of dental practices and highlight their
-          clinical expertise. With his combined knowledge of dentistry and
-          photography, Jayden brings a precise and creative approach to every
-          project. His aim is to support dental professionals in presenting
-          their work with clarity and impact, ensuring their practices stand out
-          in an increasingly competitive digital environment.
+          <br /> My work focuses on producing compelling visuals that strengthen
+          the online presence of dental practices and highlight their clinical
+          expertise. With his combined knowledge of dentistry and photography,
+          Jayden brings a precise and creative approach to every project. His
+          aim is to support dental professionals in presenting their work with
+          clarity and impact, ensuring their practices stand out in an
+          increasingly competitive digital environment.
         </p>
         <button className="mt-6 px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition text-lg">
           contact me
