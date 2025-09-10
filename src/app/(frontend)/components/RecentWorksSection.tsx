@@ -78,7 +78,7 @@ export default function RecentWorksSection() {
   };
 
   return (
-    <div className="flex flex-col items-center p-10 gap-10">
+    <div className="flex flex-col p-10">
       {/* Custom drag cursor */}
       <motion.div
         className="fixed pointer-events-none z-50 bg-black text-white rounded-full px-3 py-1 text-sm font-medium transform -translate-x-1/2 -translate-y-1/2"
@@ -96,9 +96,9 @@ export default function RecentWorksSection() {
         drag
       </motion.div>
 
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-2">Recent Work</h2>
-        <p className="text-lg text-gray-600 mb-2 max-w-2xl mx-auto">
+      <div className="items-center text-center">
+        <h2 className="text-5xl font-bold mb-2">Recent Work</h2>
+        <p className="text-lg text-gray-600">
           Check out some of my recent projects that showcase my skills and
           expertise.
         </p>

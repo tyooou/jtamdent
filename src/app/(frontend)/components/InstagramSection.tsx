@@ -5,14 +5,20 @@ import { useEffect } from "react";
 export default function InstagramSection() {
   useEffect(() => {
     // Load EmbedSocial script
-    const script = document.createElement("script");
-    script.src = "https://embedsocial.com/cdn/ht.js";
-    script.id = "EmbedSocialHashtagScript";
+    const loadScript = () => {
+      // Check if script already exists
+      if (document.getElementById("EmbedSocialHashtagScript")) {
+        return;
+      }
 
-    // Only load if not already loaded
-    if (!document.getElementById("EmbedSocialHashtagScript")) {
-      document.head.appendChild(script);
-    }
+      const script = document.createElement("script");
+      script.id = "EmbedSocialHashtagScript";
+      script.src = "https://embedsocial.com/cdn/ht.js";
+      script.async = true;
+      document.getElementsByTagName("head")[0].appendChild(script);
+    };
+
+    loadScript();
 
     return () => {
       // Cleanup script on unmount
@@ -26,25 +32,23 @@ export default function InstagramSection() {
   }, []);
 
   return (
-    <div className="text-black flex flex-col items-center p-10 gap-10 md:gap-20 md:flex-row">
-      <div
-        className="embedsocial-hashtag"
-        data-ref="13e1431e4f66a9103247f1cce32bc3bfe999b984"
+    <div
+      className="embedsocial-hashtag"
+      data-ref="cb9c0965f4c4339654109d39e1ae2a6f6db179e6"
+    >
+      <a
+        className="feed-powered-by-es feed-powered-by-es-feed-img es-widget-branding"
+        href="https://embedsocial.com/social-media-aggregator/"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Instagram widget"
       >
-        <a
-          className="feed-powered-by-es feed-powered-by-es-feed-img es-widget-branding"
-          href="https://embedsocial.com/social-media-aggregator/"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Instagram widget"
-        >
-          <img
-            src="https://embedsocial.com/cdn/icon/embedsocial-logo.webp"
-            alt="EmbedSocial"
-          />
-          <div className="es-widget-branding-text">Instagram widget</div>
-        </a>
-      </div>
+        <img
+          src="https://embedsocial.com/cdn/icon/embedsocial-logo.webp"
+          alt="EmbedSocial"
+        />
+        <div className="es-widget-branding-text">Instagram widget</div>
+      </a>
     </div>
   );
 }

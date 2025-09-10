@@ -41,7 +41,7 @@ export default function GalleryFilters({
   };
 
   return (
-    <div className="mx-8 flex items-center sticky top-15 bg-white py-4 z-20">
+    <div className="flex items-center sticky top-15 bg-white py-4 z-20">
       {/* Category Filter Buttons */}
       <div className="text-xs space-x-2 px-1">
         <span className="text-gray-600 pr-4">Show</span>

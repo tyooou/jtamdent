@@ -8,7 +8,7 @@ export default function LandingVideo() {
         Your browser does not support the video tag.
       </video>
       <div className="absolute inset-0 bg-black opacity-80 pointer-events-none" />
-      <div className="absolute inset-0 flex items-center justify-center text-white">
+      <div className="absolute inset-0 flex items-center justify-center text-white ">
         <Slogan />
       </div>
     </div>

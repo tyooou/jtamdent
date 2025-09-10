@@ -1,12 +1,53 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+type ProfileData = {
+  id: string;
+  filename: string;
+  alt: string;
+  url: string;
+};
+
 export default function AboutSection() {
+  const [profileImage, setProfileImage] = useState<ProfileData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfileImage = async () => {
+      try {
+        const response = await fetch("/api/profile");
+        const data = await response.json();
+
+        setProfileImage(data?.docs?.[0] || null);
+      } catch (error) {
+        console.error("Error fetching profile image:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfileImage();
+  }, []);
+
   return (
     <div className="text-black flex flex-col items-center p-10 gap-10 md:gap-20 md:flex-row">
       <div>
-        <img
-          src="/jaidyn-tam.jpg"
-          alt="Jaidyn Tam"
-          className="w-100 h-100 mx-auto"
-        />
+        {loading ? (
+          <div className="w-100 h-100 bg-gray-200 animate-pulse rounded"></div>
+        ) : profileImage ? (
+          <img
+            src={profileImage.url}
+            alt={profileImage.alt || "Jaidyn Tam"}
+            className="w-100 h-100 mx-auto"
+          />
+        ) : (
+          <img
+            src="/jaidyn-tam.jpg"
+            alt="Jaidyn Tam"
+            className="w-100 h-100 mx-auto"
+          />
+        )}
       </div>
       <div>
         <h1 className="text-5xl font-bold">Hey, I'm Jaidyn Tam.</h1>

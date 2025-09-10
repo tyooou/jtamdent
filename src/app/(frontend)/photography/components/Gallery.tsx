@@ -263,7 +263,7 @@ export default function Gallery({
   };
 
   return (
-    <div className="mx-8 mt-4 mb-16">
+    <div className="mt-1 mb-16">
       {/* Debug: Show if images are loaded */}
       {images.length === 0 && (
         <div className="text-gray-500 py-12">

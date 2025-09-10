@@ -25,7 +25,7 @@ export default function MetricSection() {
         title="Years of experience"
         description="Combining deep dental industry knowledge with professional photography and videography expertise."
       />
-      <div className="col-span-3 rounded-2xl w-full border p-10">
+      <div className="col-span-3 rounded-2xl w-full border p-10" id="contact">
         <h1 className="text-3xl font-bold mb-1">Interested?</h1>
         <p className="text-lg text-gray-600 mb-2">Let's chat over coffee.</p>
         <p className="text-base mb-4">
