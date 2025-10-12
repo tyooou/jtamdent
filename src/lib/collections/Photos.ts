@@ -1,9 +1,8 @@
 import { CollectionConfig } from "payload";
 
-export const Photos: CollectionConfig = {
+const Photos: CollectionConfig = {
   slug: "photos",
   upload: {
-    staticDir: "photos",
     imageSizes: [
       {
         name: "thumbnail",
@@ -49,4 +48,9 @@ export const Photos: CollectionConfig = {
       defaultValue: "people",
     },
   ],
+  access: {
+    read: () => true, // Allow public read access
+  },
 };
+
+export default Photos;

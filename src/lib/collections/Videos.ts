@@ -1,9 +1,8 @@
 import { CollectionConfig } from "payload";
 
-export const Videos: CollectionConfig = {
+const Videos: CollectionConfig = {
   slug: "videos",
   upload: {
-    staticDir: "videos",
     mimeTypes: ["video/*"],
   },
   fields: [
@@ -28,4 +27,9 @@ export const Videos: CollectionConfig = {
       defaultValue: "promotional",
     },
   ],
+  access: {
+    read: () => true, // Allow public read access
+  },
 };
+
+export default Videos;
