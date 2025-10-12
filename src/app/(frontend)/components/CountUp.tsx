@@ -7,6 +7,7 @@ interface CountUpProps {
   duration?: number;
   isPlused?: boolean;
   className?: string;
+  shouldStart?: boolean;
 }
 
 export default function CountUp({
@@ -14,10 +15,16 @@ export default function CountUp({
   duration = 2000,
   isPlused = false,
   className = "",
+  shouldStart = true,
 }: CountUpProps) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    if (!shouldStart) {
+      setCount(0);
+      return;
+    }
+
     let startTime: number;
     let animationFrame: number;
 
@@ -50,7 +57,7 @@ export default function CountUp({
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, [target, duration]);
+  }, [target, duration, shouldStart]);
 
   return (
     <div className={`${className}`}>

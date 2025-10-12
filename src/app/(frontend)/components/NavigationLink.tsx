@@ -8,8 +8,8 @@ export default function NavigationLink({
   href: string;
 }) {
   return (
-    <li className="text-white hover:text-gray-300">
-      <Link href={href}>{text}</Link>
-    </li>
+    <Link href={href} className="text-white hover:text-gray-300 transition-colors duration-200">
+      {text}
+    </Link>
   );
 }

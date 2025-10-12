@@ -259,22 +259,22 @@ export default function Gallery({
     const desktopClass =
       lgClasses[desktop as keyof typeof lgClasses] || "lg:grid-cols-4";
 
-    return `grid ${mobileClass} ${tabletClass} ${mediumClass} ${desktopClass} gap-6`;
+    return `grid ${mobileClass} ${tabletClass} ${mediumClass} ${desktopClass} gap-3 md:gap-4 lg:gap-6`;
   };
 
   return (
-    <div className="mt-1 mb-16">
-      {/* Debug: Show if images are loaded */}
+    <div className="mt-4 md:mt-6 mb-16">
+      {/* Loading state */}
       {images.length === 0 && (
-        <div className="text-gray-500 py-12">
-          <p>Loading images...</p>
+        <div className="text-center text-gray-500 py-12 md:py-16">
+          <div className="text-lg md:text-xl">Loading images...</div>
         </div>
       )}
 
       {/* No results message */}
       {images.length > 0 && filteredImages.length === 0 && (
-        <div className="text-center text-gray-500 py-12">
-          <p>No images found for the selected category.</p>
+        <div className="text-center text-gray-500 py-12 md:py-16">
+          <div className="text-lg md:text-xl">No images found for the selected category.</div>
         </div>
       )}
       {/* Grid layout for images */}
@@ -282,15 +282,15 @@ export default function Gallery({
         {filteredImages.map((image) => (
           <div
             key={image.id}
-            className="bg-white overflow-hidden cursor-pointer"
+            className="bg-white overflow-hidden cursor-pointer rounded-lg md:rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
             onClick={() => setSelectedImage(image)}
           >
             {/* Image container with fixed aspect ratio - no text */}
-            <div className="aspect-square w-full bg-gray-200">
+            <div className="aspect-square w-full bg-gray-200 rounded-lg md:rounded-xl overflow-hidden">
               <img
                 src={getThumbnailUrl(image)}
                 alt={image.title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-cover hover:scale-105 active:scale-95 transition-transform duration-300"
                 loading="lazy" // Enable lazy loading for performance
                 onError={(e) => {
                   console.error(

@@ -25,15 +25,19 @@ export default function VideoGallerySection({
   const [sortBy, setSortBy] = useState<string>("Most Recent");
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 py-12 max-w-7xl mx-auto">
+    <div className="px-4 sm:px-6 lg:px-8 py-6 md:py-8 lg:py-12 max-w-7xl mx-auto">
       {/* Optional gallery header */}
       {(title || description) && (
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8 lg:mb-12">
           {title && (
-            <h2 className="text-7xl font-bold text-gray-900 mb-4">{title}</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-3 md:mb-4">
+              {title}
+            </h2>
           )}
           {description && (
-            <p className="text-2xl text-gray-600 max-w-2xl">{description}</p>
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 max-w-2xl leading-relaxed">
+              {description}
+            </p>
           )}
         </div>
       )}

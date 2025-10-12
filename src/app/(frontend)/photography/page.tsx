@@ -6,15 +6,20 @@ export default function Photography() {
   return (
     <div className="min-h-screen flex flex-col">
       <NavigationBar />
-      <div className="flex-1">
+      <main className="flex-1">
         <GallerySection
           url="/api/photos"
           title="Photography"
           description="A collection of my photography work."
+          columns={{
+            mobile: 1,
+            tablet: 2,
+            desktop: 3
+          }}
           enableThumbnails={true}
           thumbnailQuality="high"
         />
-      </div>
+      </main>
       <Footer />
     </div>
   );

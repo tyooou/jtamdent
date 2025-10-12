@@ -41,39 +41,83 @@ export default function VideoGalleryFilters({
   };
 
   return (
-    <div className="mb-6 flex items-center">
-      {/* Category Filter Buttons */}
-      <div className="text-xs space-x-2 px-1">
-        <span className="text-gray-600 pr-4">Show</span>
-        {buttons.map((button) => (
-          <button
-            key={button}
-            className={`px-6 py-2 border border-1 rounded-full  ${
-              getSelectedNode === button
-                ? "bg-black border-black text-white"
-                : "bg-white border-gray-300 text-black"
-            }`}
-            onClick={() => handleCategoryChange(button)}
+    <div className="sticky top-16 md:top-28 bg-white py-4 z-20 border-b border-gray-100 mb-6">
+      {/* Mobile Layout - Stacked */}
+      <div className="block md:hidden space-y-4">
+        {/* Category Filter Buttons - Mobile */}
+        <div className="space-y-2">
+          <span className="text-sm text-gray-600 block">Show</span>
+          <div className="grid grid-cols-2 gap-2">
+            {buttons.map((button) => (
+              <button
+                key={button}
+                className={`px-4 py-3 text-sm border rounded-lg transition-colors ${
+                  getSelectedNode === button
+                    ? "bg-black border-black text-white"
+                    : "bg-white border-gray-300 text-black hover:bg-gray-50"
+                }`}
+                onClick={() => handleCategoryChange(button)}
+              >
+                {button}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Sort Dropdown - Mobile */}
+        <div className="space-y-2">
+          <span className="text-sm text-gray-600 block">Sort by</span>
+          <select
+            value={selectedSort}
+            onChange={(e) => handleSortChange(e.target.value)}
+            className="w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-black focus:border-transparent"
           >
-            {button}
-          </button>
-        ))}
+            {filters.map((filter) => (
+              <option key={filter} value={filter}>
+                {filter}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      {/* Sort Dropdown */}
-      <div className="flex items-center space-x-4 px-1 ml-auto text-xs">
-        <span className="text-gray-600">Sort by</span>
-        <select
-          value={selectedSort}
-          onChange={(e) => handleSortChange(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-black focus:border-transparent cursor-pointer"
-        >
-          {filters.map((filter) => (
-            <option key={filter} value={filter}>
-              {filter}
-            </option>
-          ))}
-        </select>
+      {/* Desktop Layout - Horizontal */}
+      <div className="hidden md:flex items-center justify-between">
+        {/* Category Filter Buttons - Desktop */}
+        <div className="flex items-center text-sm space-x-3">
+          <span className="text-gray-600">Show</span>
+          <div className="flex space-x-2">
+            {buttons.map((button) => (
+              <button
+                key={button}
+                className={`px-6 py-2 border rounded-full transition-colors ${
+                  getSelectedNode === button
+                    ? "bg-black border-black text-white"
+                    : "bg-white border-gray-300 text-black hover:bg-gray-50"
+                }`}
+                onClick={() => handleCategoryChange(button)}
+              >
+                {button}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Sort Dropdown - Desktop */}
+        <div className="flex items-center space-x-3 text-sm">
+          <span className="text-gray-600">Sort by</span>
+          <select
+            value={selectedSort}
+            onChange={(e) => handleSortChange(e.target.value)}
+            className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-black focus:border-transparent cursor-pointer"
+          >
+            {filters.map((filter) => (
+              <option key={filter} value={filter}>
+                {filter}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
     </div>
   );

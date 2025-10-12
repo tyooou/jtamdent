@@ -217,22 +217,22 @@ export default function VideoGallery({
     const desktopClass =
       lgClasses[desktop as keyof typeof lgClasses] || "lg:grid-cols-4";
 
-    return `grid ${mobileClass} ${tabletClass} ${mediumClass} ${desktopClass} gap-6`;
+    return `grid ${mobileClass} ${tabletClass} ${mediumClass} ${desktopClass} gap-3 md:gap-4 lg:gap-6`;
   };
 
   return (
-    <div className="mx-8 mt-4 mb-16">
-      {/* Debug: Show if videos are loaded */}
+    <div className="mt-4 md:mt-6 mb-16">
+      {/* Loading state */}
       {videos.length === 0 && (
-        <div className="text-gray-500 py-12">
-          <p>Loading videos...</p>
+        <div className="text-center text-gray-500 py-12 md:py-16">
+          <div className="text-lg md:text-xl">Loading videos...</div>
         </div>
       )}
 
       {/* No results message */}
       {videos.length > 0 && filteredVideos.length === 0 && (
-        <div className="text-center text-gray-500 py-12">
-          <p>No videos found for the selected category.</p>
+        <div className="text-center text-gray-500 py-12 md:py-16">
+          <div className="text-lg md:text-xl">No videos found for the selected category.</div>
         </div>
       )}
 
@@ -241,30 +241,30 @@ export default function VideoGallery({
         {filteredVideos.map((video) => (
           <div
             key={video.id}
-            className="bg-white overflow-hidden cursor-pointer relative group"
+            className="bg-white overflow-hidden cursor-pointer relative group rounded-lg md:rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
             onClick={() => setSelectedVideo(video)}
           >
             {/* Video container with fixed aspect ratio */}
-            <div className="aspect-video w-full bg-gray-200 relative flex items-center justify-center">
+            <div className="aspect-video w-full bg-gray-200 relative flex items-center justify-center rounded-lg md:rounded-xl overflow-hidden">
               {/* Video placeholder */}
               <div className="text-center">
                 <svg
-                  className="w-16 h-16 text-gray-400 mx-auto mb-2"
+                  className="w-12 h-12 md:w-16 md:h-16 text-gray-400 mx-auto mb-2"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
                   <path d="M8 5v14l11-7z" />
                 </svg>
-                <p className="text-gray-500 text-sm">
+                <p className="text-gray-500 text-xs md:text-sm px-2">
                   {video.title || "Video"}
                 </p>
               </div>
 
               {/* Play button overlay */}
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 group-active:opacity-100 transition-opacity duration-300">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center transform group-active:scale-95 transition-transform">
                   <svg
-                    className="w-8 h-8 text-black ml-1"
+                    className="w-6 h-6 md:w-8 md:h-8 text-black ml-0.5 md:ml-1"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
