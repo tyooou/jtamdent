@@ -3,7 +3,6 @@ import { CollectionConfig } from "payload";
 const Profile: CollectionConfig = {
   slug: "profile",
   upload: {
-    staticDir: "media/profile",
     mimeTypes: ["image/*"],
   },
   fields: [
@@ -13,6 +12,9 @@ const Profile: CollectionConfig = {
       required: true,
     },
   ],
+  access: {
+    read: () => true, // Allow public read access
+  },
 };
 
 export default Profile;

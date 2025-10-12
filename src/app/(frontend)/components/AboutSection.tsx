@@ -16,10 +16,27 @@ export default function AboutSection() {
   useEffect(() => {
     const fetchProfileImage = async () => {
       try {
-        const response = await fetch("/api/profile");
+        // Fetch from Payload CMS API
+        const response = await fetch("/api/profile?limit=1");
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
-
-        setProfileImage(data?.docs?.[0] || null);
+        
+        // Payload returns data in format: { docs: [...] }
+        const profileDoc = data?.docs?.[0];
+        
+        if (profileDoc) {
+          // Construct the full URL for the uploaded image
+          const imageUrl = profileDoc.url || `/api/media/file/${profileDoc.filename}`;
+          
+          setProfileImage({
+            ...profileDoc,
+            url: imageUrl
+          });
+        }
       } catch (error) {
         console.error("Error fetching profile image:", error);
       } finally {
@@ -50,9 +67,9 @@ export default function AboutSection() {
         )}
       </div>
       <div className="w-full md:w-auto text-center md:text-left">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">Hey, I'm Jaidyn Tam.</h1>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">Hey, I&apos;m Jaidyn Tam.</h1>
         <p className="mt-4 md:mt-6 text-base sm:text-lg max-w-full md:max-w-2xl">
-          I'm a current dental student and aspiring content specialist with over
+          I&apos;m a current dental student and aspiring content specialist with over
           seven years of experience and a background in dentistry. I specialises
           in{" "}
           <span className="font-bold">

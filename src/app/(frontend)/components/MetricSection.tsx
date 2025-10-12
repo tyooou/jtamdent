@@ -19,7 +19,7 @@ export default function MetricSection() {
       },
       {
         threshold: 0.2, // Trigger when 20% of the section is visible
-        rootMargin: '0px 0px -50px 0px' // Start animation slightly before fully visible
+        rootMargin: "0px 0px -50px 0px", // Start animation slightly before fully visible
       }
     );
 
@@ -65,9 +65,9 @@ export default function MetricSection() {
       />
       <div className="col-span-1 md:col-span-3 rounded-2xl w-full border p-6 md:p-8 lg:p-10 mt-4 md:mt-0" id="contact">
         <h1 className="text-2xl md:text-3xl font-bold mb-2 md:mb-1">Interested?</h1>
-        <p className="text-base md:text-lg text-gray-600 mb-3 md:mb-2">Let's chat over coffee.</p>
+        <p className="text-base md:text-lg text-gray-600 mb-3 md:mb-2">Let&apos;s chat over coffee.</p>
         <p className="text-sm md:text-base mb-6 md:mb-4 leading-relaxed">
-          I'm excited to discuss how we can elevate your dental practice through
+          I&apos;m excited to discuss how we can elevate your dental practice through
           stunning visual storytelling.
         </p>
         <ContactForm />

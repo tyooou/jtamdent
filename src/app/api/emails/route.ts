@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     // Check if email already exists
     const existingEmail = await payload.find({
-      collection: "emails" as any,
+      collection: "emails",
       where: {
         email: {
           equals: email,
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
 
     // Create new email entry
     await payload.create({
-      collection: "emails" as any,
+      collection: "emails",
       data: {
         email,
       },

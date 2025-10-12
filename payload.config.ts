@@ -32,10 +32,11 @@ export default buildConfig({
       collections: {
         photos: true,
         videos: true,
+        profile: true,
       },
       bucket: process.env.SUPABASE_STORAGE_BUCKET || "",
       config: {
-        endpoint: `https://bilxtwjbsoytjxqwgbmk.supabase.co/storage/v1/s3`,
+        endpoint: `https://bilxtwjbsoytjxqwgbmk.storage.supabase.co/storage/v1/s3`,
         forcePathStyle: true,
         credentials: {
           accessKeyId: process.env.SUPABASE_ACCESS_KEY_ID || "",

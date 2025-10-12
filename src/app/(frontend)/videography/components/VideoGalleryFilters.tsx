@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 
-var buttons = ["All", "Interview", "Promotional"];
-var filters = ["Most Recent", "Oldest", "Most Popular"];
+const buttons = ["All", "Interview", "Promotional"];
+const filters = ["Most Recent", "Oldest", "Most Popular"];
 
 type VideoGalleryFiltersProps = {
   onCategoryChange?: (category: string) => void;
