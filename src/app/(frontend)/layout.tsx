@@ -3,6 +3,7 @@ import { interTight } from "./font";
 import "./globals.css";
 import PageTransition from "./components/PageTransition";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 import path from "path";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className={interTight.className}>
         <PageTransition>{children}</PageTransition>
         <SpeedInsights/>
+        <Analytics />
       </body>
     </html>
   );
