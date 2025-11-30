@@ -32,13 +32,15 @@ export default function NavigationBar() {
       scrollToSection(url);
     } else {
       router.push("/");
-      // Add delay to wait for page navigation to complete
       setTimeout(() => {
-        // Recalculate scroll and resize state
-        window.dispatchEvent(new Event('resize'));
-        window.dispatchEvent(new Event('scroll'));
-        scrollToSection(url);
-      }, 350); // Slightly longer delay for navigation/render
+        // Explicitly reset navbar state
+        setScrolled(false);
+        setIsMobile(window.innerWidth < 768);
+        // Wait for layout, then scroll
+        requestAnimationFrame(() => {
+          scrollToSection(url);
+        });
+      }, 350);
     }
   };
 
