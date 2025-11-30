@@ -305,13 +305,6 @@ export default function RecentWorksSection() {
                   />
                 )
               )}
-              {/* Overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
-              {/* Title and description overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 z-20 text-left">
-                <h3 className="text-2xl font-bold mb-4 text-white drop-shadow-lg">{modalProject.title}</h3>
-                <p className="text-base text-white drop-shadow-lg line-clamp-4">{modalProject.description}</p>
-              </div>
             </div>
           </div>
         </div>
