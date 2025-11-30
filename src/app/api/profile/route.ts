@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
+interface Profile {
+    id: string;
+    alt: string;
+    filename: string | null;
+    url: string | null;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const payload = await getPayload({ config });
@@ -14,12 +21,12 @@ export async function GET(request: NextRequest) {
     }
 
     // Simplified: only use Payload-provided url, no Supabase reconstruction.
-    const url = (doc as any).url || null;
+    const url = doc.url || null;
 
     return NextResponse.json({
       id: doc.id,
-      alt: (doc as any).alt || "profile image",
-      filename: (doc as any).filename || null,
+      alt: doc.alt || "profile image",
+      filename: doc.filename || null,
       url,
     });
   } catch (err) {

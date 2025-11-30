@@ -24,7 +24,7 @@ export default function RecentWorksSection() {
         const res = await fetch("/api/recent-works?limit=10&sort=-createdAt");
         const data = await res.json();
         // Map Payload docs to Project[]
-        const mapped = (data.docs || []).map((doc: any) => ({
+        const mapped = (data.docs || []).map((doc: Project) => ({
           title: doc.title,
           description: doc.description,
           url: doc.url?.startsWith('http') ? doc.url : `${window.location.origin}${doc.url}`,
