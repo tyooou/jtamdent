@@ -33,13 +33,10 @@ export default function NavigationBar() {
     } else {
       router.push("/");
       setTimeout(() => {
-        // Explicitly reset navbar state
-        setScrolled(false);
+        // Explicitly reset navbar state based on current window
         setIsMobile(window.innerWidth < 768);
-        // Wait for layout, then scroll
-        requestAnimationFrame(() => {
-          scrollToSection(url);
-        });
+        setScrolled(window.scrollY >= 40);
+        scrollToSection(url);
       }, 350);
     }
   };
