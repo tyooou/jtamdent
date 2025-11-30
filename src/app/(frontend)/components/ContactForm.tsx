@@ -8,6 +8,7 @@ export default function ContactForm() {
     email: "",
     message: "",
   });
+  const [sent, setSent] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -19,16 +20,35 @@ export default function ContactForm() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    // Reset form
-    setFormData({ name: "", email: "", message: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setSent(true);
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setSent(false), 5000);
+      } else {
+        // Optionally handle error
+        alert("Failed to send message. Please try again later.");
+      }
+    } catch (err) {
+      alert("Failed to send message. Please try again later.");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {sent && (
+        <div className="w-full text-center py-2 px-4 rounded-md bg-green-100 text-green-800 font-medium border border-green-300 mb-2 animate-fade-in">
+          Thank you! Your message has been sent.
+        </div>
+      )}
+
       <div>
         <label
           htmlFor="name"

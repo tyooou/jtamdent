@@ -19,7 +19,7 @@ export default function Slogan() {
     setMessage("‎ ‎ ");
 
     try {
-      const response = await fetch("/api/emails", {
+      const response = await fetch("/api/email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,29 +44,30 @@ export default function Slogan() {
   };
 
   return (
-    <div className="gap-6 md:gap-8 flex flex-col text-center md:text-left">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-        Where every smile <br className="hidden sm:block" />
-        <span className="sm:hidden">gets the spotlight.</span>
-        <span className="hidden sm:inline">gets the spotlight.</span>
+    <div className="gap-6 md:gap-8 flex flex-col text-left">
+      <h1 className="text-6xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-tight">
+        Dental content simplified.
       </h1>
+      <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-zinc-200 mt-0">
+        Where every smile gets the spotlight.
+      </h2>
       <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto md:mx-0">
-        Want more information? Enter your email below:
+        Want more information? Enter your email below for an info and price brochure:
       </p>
-      <form onSubmit={handleSubmit} className="max-w-2xl mx-auto md:mx-0">
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-2">
+      <form onSubmit={handleSubmit} className="max-w-2xl mx-auto md:mx-0 w-full">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-2 w-full">
           <input
             type="email"
             placeholder="Your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-white p-4 sm:p-3 md:p-2 rounded-full flex-1 text-black text-base sm:text-base md:text-sm min-w-0 focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:outline-none"
+            className="bg-white py-2 px-4 sm:p-3 md:p-2 rounded-full flex-1 text-black text-base sm:text-base md:text-sm min-w-0 focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:outline-none w-full"
             disabled={isSubmitting}
           />
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-black text-white px-8 py-4 sm:px-6 sm:py-3 md:px-4 md:py-2 rounded-full hover:bg-zinc-800 active:bg-zinc-900 text-base sm:text-base md:text-sm whitespace-nowrap transition-colors focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:outline-none disabled:opacity-50"
+            className="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 md:px-4 md:py-2 rounded-full hover:bg-zinc-800 active:bg-zinc-900 text-base sm:text-base md:text-sm whitespace-nowrap transition-colors focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:outline-none disabled:opacity-50 w-full sm:w-auto"
           >
             {isSubmitting ? "Sending..." : "Send"}
           </button>

@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 
-const buttons = ["All", "People", "Product", "Design"];
-const filters = ["Most Recent", "Oldest", "Most Popular"];
+const buttons = ["All", "People", "Product"];
+const filters = ["Most Recent"];
 
 type GalleryFiltersProps = {
   onCategoryChange?: (category: string) => void;

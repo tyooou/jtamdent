@@ -262,6 +262,18 @@ export default function Gallery({
     return `grid ${mobileClass} ${tabletClass} ${mediumClass} ${desktopClass} gap-3 md:gap-4 lg:gap-6`;
   };
 
+  const getTileClass = (i: number, total: number) => {
+    i = i % 17;
+    if (i % 7 === 0) return "col-span-2 row-span-2";
+    if (i % 7 === 1) return "col-span-1 row-span-2";
+    if (i % 7 === 2) return "col-span-2 row-span-1";
+    if (i % 7 === 3) return "col-span-1 row-span-2";
+    if (i % 7 === 4) return "col-span-1 row-span-1";
+    if (i % 7 === 5) return "col-span-1 row-span-1";
+    if (i % 7 === 6) return "col-span-1 row-span-2";
+    return "col-span-1 row-span-1";
+  };
+
   return (
     <div className="mt-4 md:mt-6 mb-16">
       {/* Loading state */}
@@ -278,26 +290,25 @@ export default function Gallery({
         </div>
       )}
       {/* Grid layout for images */}
-      <div className={getGridClasses()}>
-        {filteredImages.map((image) => (
+      <div className={getGridClasses() + " auto-rows-[140px] md:auto-rows-[180px] lg:auto-rows-[220px]"}>
+        {filteredImages.map((image, i) => (
           <div
             key={image.id}
-            className="bg-white overflow-hidden cursor-pointer rounded-lg md:rounded-xl shadow-sm hover:shadow-md transition-all duration-300"
+            className={`bg-white ... ${getTileClass(i, filteredImages.length)}`}
             onClick={() => setSelectedImage(image)}
           >
-            {/* Image container with fixed aspect ratio - no text */}
-            <div className="aspect-square w-full bg-gray-200 rounded-lg md:rounded-xl overflow-hidden">
+            {/* Image container with variable aspect ratio - no text */}
+            <div className="w-full h-full bg-gray-200 rounded-lg md:rounded-xl overflow-hidden">
               <img
                 src={getThumbnailUrl(image)}
                 alt={image.title}
                 className="w-full h-full object-cover hover:scale-105 active:scale-95 transition-transform duration-300"
-                loading="lazy" // Enable lazy loading for performance
+                loading="lazy"
                 onError={(e) => {
                   console.error(
                     "Thumbnail failed to load, falling back to original:",
                     getThumbnailUrl(image)
                   );
-                  // Fallback to original image if thumbnail fails
                   e.currentTarget.src = image.url;
                 }}
                 onLoad={() =>
@@ -322,14 +333,42 @@ export default function Gallery({
           className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedImage(null)}
         >
+          {/* Left arrow (fixed to viewport edge) */}
+          <button
+            onClick={e => {
+              e.stopPropagation();
+              const idx = filteredImages.findIndex(img => img.id === selectedImage.id);
+              if (idx > 0) setSelectedImage(filteredImages[idx - 1]);
+            }}
+            className="fixed left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-50 disabled:opacity-30 transition-all duration-200 hover:bg-opacity-90 hover:scale-110"
+            aria-label="Previous image"
+            disabled={filteredImages.findIndex(img => img.id === selectedImage.id) === 0}
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          </button>
+
+          {/* Right arrow (fixed to viewport edge) */}
+          <button
+            onClick={e => {
+              e.stopPropagation();
+              const idx = filteredImages.findIndex(img => img.id === selectedImage.id);
+              if (idx < filteredImages.length - 1) setSelectedImage(filteredImages[idx + 1]);
+            }}
+            className="fixed right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full z-50 disabled:opacity-30 transition-all duration-200 hover:bg-opacity-90 hover:scale-110"
+            aria-label="Next image"
+            disabled={filteredImages.findIndex(img => img.id === selectedImage.id) === filteredImages.length - 1}
+          >
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          </button>
+
           <div
-            className="relative max-w-4xl max-h-full"
+            className="relative max-w-4xl max-h-full flex items-center"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 text-white bg-black bg-opacity-50 p-2 hover:bg-opacity-70 transition-all z-10"
+              className="absolute top-4 right-4 text-white bg-black bg-opacity-50 p-2 hover:bg-opacity-70 transition-all z-10 hover:scale-110 rounded-full"
               aria-label="Close modal"
             >
               <svg
@@ -361,7 +400,7 @@ export default function Gallery({
             />
 
             {/* Image info */}
-            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-4">
+            <div className="absolute bottom-0 left-0 right-0bg-opacity-70 text-white p-4">
               <h3 className="text-xl font-semibold mb-2">
                 {selectedImage.title}
               </h3>

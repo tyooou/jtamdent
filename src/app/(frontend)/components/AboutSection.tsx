@@ -17,7 +17,7 @@ export default function AboutSection() {
     const fetchProfileImage = async () => {
       try {
         // Fetch from Payload CMS API
-        const response = await fetch("/api/profile?limit=1");
+        const response = await fetch("/api/profile");
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -25,16 +25,13 @@ export default function AboutSection() {
         
         const data = await response.json();
         
-        // Payload returns data in format: { docs: [...] }
-        const profileDoc = data?.docs?.[0];
-        
-        if (profileDoc) {
-          // Construct the full URL for the uploaded image
-          const imageUrl = profileDoc.url || `/api/media/file/${profileDoc.filename}`;
-          
+        if (data && data.url)
+        {
           setProfileImage({
-            ...profileDoc,
-            url: imageUrl
+            id: data.id,
+            filename: data.filename,
+            alt: data.alt,
+            url: data.url,
           });
         }
       } catch (error) {
@@ -66,27 +63,32 @@ export default function AboutSection() {
           />
         )}
       </div>
-      <div className="w-full md:w-auto text-center md:text-left">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">Hey, I&apos;m Jaidyn Tam.</h1>
+      <div className="w-full md:w-auto text-left">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">Hey, I&apos;m Jaidyn.</h1>
         <p className="mt-4 md:mt-6 text-base sm:text-lg max-w-full md:max-w-2xl">
-          I&apos;m a current dental student and aspiring content specialist with over
-          seven years of experience and a background in dentistry. I specialises
-          in{" "}
-          <span className="font-bold">
-            creating high-quality dental content
-          </span>{" "}
-          designed for marketing and professional branding.
+          I&apos;m a current dental student with over eight years of photography and videography experience, delivering premium visual content for dental and healthcare professionals.
           <br />
-          <br /> My work focuses on producing compelling visuals that strengthen
-          the online presence of dental practices and highlight their clinical
-          expertise. With my combined knowledge of dentistry and photography,
-          I bring a precise and creative approach to every project. My
-          aim is to support dental professionals in presenting their work with
-          clarity and impact, ensuring their practices stand out in an
-          increasingly competitive digital environment.
+          <br /> From intra-oral macro photography to full-scale videography, my aim is to support dental professionals in presenting their work with clarity and impact. With a deep understanding of the industry, I simplify complex clinical work into clear, engaging visuals that build trust and strengthen your brand online.
         </p>
-        <button className="mt-4 md:mt-6 px-6 py-3 bg-black text-white rounded hover:bg-gray-800 transition text-base sm:text-lg w-full sm:w-auto">
-          contact me
+        <button
+          className="mt-4 md:mt-6 px-6 py-3 bg-black text-white rounded hover:bg-gray-800 transition text-sm sm:text-md w-full sm:w-auto rounded-xl"
+          type="button"
+          onClick={() => {
+            // Try both hash and scroll for robustness
+            const element = document.getElementById('contact');
+            if (element && typeof window !== 'undefined') {
+              const navbarHeight = window.innerWidth < 768 ? 64 : 112;
+              const elementPosition = element.getBoundingClientRect().top + window.scrollY - navbarHeight;
+              window.scrollTo({
+                top: elementPosition,
+                behavior: "smooth",
+              });
+            } else {
+              window.location.hash = '#contact';
+            }
+          }}
+        >
+         Get in touch!
         </button>
       </div>
     </div>

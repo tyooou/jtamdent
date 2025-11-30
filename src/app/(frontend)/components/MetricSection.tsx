@@ -37,38 +37,37 @@ export default function MetricSection() {
   return (
     <div 
       ref={sectionRef}
-      className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto p-4 md:p-6 lg:p-10"
+      className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto p-8 md:p-6 lg:p-10"
     >
       <Metric
-        number={750}
+        number={300}
         duration={2000}
         isPlused={true}
         shouldStart={isVisible}
         title="Hours of content"
-        description="Capturing and crafting compelling visual stories that showcase the artistry of modern dentistry."
+        description="Capturing compelling visual stories that showcase the artistry of modern dentistry."
       />
       <Metric
-        number={20}
+        number={25}
         duration={2500}
         isPlused={true}
         shouldStart={isVisible}
         title="Projects completed"
-        description="From intimate portraits to comprehensive practice documentation, each project tells a unique story."
+        description="From chairside cases to comprehensive event documentation, each project is client-tailored to tell a unique story."
       />
       <Metric
-        number={7}
+        number={8}
         duration={3000}
         isPlused={true}
         shouldStart={isVisible}
         title="Years of experience"
-        description="Combining deep dental industry knowledge with professional photography and videography expertise."
+        description="Combining dental industry knowledge with professional photography and videography expertise."
       />
       <div className="col-span-1 md:col-span-3 rounded-2xl w-full border p-6 md:p-8 lg:p-10 mt-4 md:mt-0" id="contact">
         <h1 className="text-2xl md:text-3xl font-bold mb-2 md:mb-1">Interested?</h1>
         <p className="text-base md:text-lg text-gray-600 mb-3 md:mb-2">Let&apos;s chat over coffee.</p>
         <p className="text-sm md:text-base mb-6 md:mb-4 leading-relaxed">
-          I&apos;m excited to discuss how we can elevate your dental practice through
-          stunning visual storytelling.
+          Have a project or idea in mind? I&apos;d love to chat and see how I can help bring your vision to life.
         </p>
         <ContactForm />
       </div>

@@ -6,166 +6,122 @@ import { useState, useRef, useEffect } from "react";
 interface Project {
   title: string;
   description: string;
+  url: string;
+  mimeType?: string;
+  filename?: string;
 }
 
 export default function RecentWorksSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [containerWidth, setContainerWidth] = useState(0);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [showDragCursor, setShowDragCursor] = useState(false);
+  const [modalProject, setModalProject] = useState<Project | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
 
-  const projects: Project[] = [
-    {
-      title: "Dental Practice Branding",
-      description:
-        "Complete visual identity and photography for a modern dental practice, showcasing their state-of-the-art facilities.",
-    },
-    {
-      title: "Orthodontic Treatment Documentation",
-      description:
-        "Before and after photography series documenting smile transformations and treatment progress.",
-    },
-    {
-      title: "Clinic Interior Photography",
-      description:
-        "Professional architectural photography highlighting the clean, modern design of a dental clinic.",
-    },
-    {
-      title: "Educational Content Creation",
-      description:
-        "Video production for patient education materials covering various dental procedures and treatments.",
-    },
-    {
-      title: "Team Portrait Session",
-      description:
-        "Professional headshots and team photography for dental practice marketing materials.",
-    },
-  ];
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch("/api/recent-works?limit=10&sort=-createdAt");
+        const data = await res.json();
+        // Map Payload docs to Project[]
+        const mapped = (data.docs || []).map((doc: any) => ({
+          title: doc.title,
+          description: doc.description,
+          url: doc.url?.startsWith('http') ? doc.url : `${window.location.origin}${doc.url}`,
+          mimeType: doc.mimeType,
+          filename: doc.filename,
+          
+        }));
+        setProjects(mapped);
+      } catch (err) {
+        setProjects([]);
+      }
+    };
+    fetchProjects();
+  }, []);
 
-  // Responsive card dimensions
-  const getCardWidth = () => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth < 640) return Math.min(window.innerWidth - 100, 280); // Mobile: smaller cards, max 280px
-      if (window.innerWidth < 768) return 400; // Small tablet: reduced from 500
-      if (window.innerWidth < 1024) return 500; // Tablet: reduced from 600
-      return 700; // Desktop: reduced from 800
-    }
-    return 700; // Default for SSR
-  };
-
+  // Responsive card dimensions and gap (client only, avoid SSR window usage)
   const [cardWidth, setCardWidth] = useState(700);
-  const gap = typeof window !== 'undefined' && window.innerWidth < 640 ? 12 : 16; // Smaller gap on mobile
+  const [gap, setGap] = useState(16);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Get container width and update card dimensions
   useEffect(() => {
     const updateDimensions = () => {
+      const width = window.innerWidth;
+      let newCardWidth = 700;
+      let newGap = 16;
+      let mobile = false;
+      if (width < 640) {
+        newCardWidth = Math.min(width - 100, 280);
+        newGap = 12;
+        mobile = true;
+      } else if (width < 768) {
+        newCardWidth = 400;
+      } else if (width < 1024) {
+        newCardWidth = 500;
+      }
+      setCardWidth(newCardWidth);
+      setGap(newGap);
+      setIsMobile(mobile);
       if (containerRef.current) {
         setContainerWidth(containerRef.current.offsetWidth);
       }
-      setCardWidth(getCardWidth());
     };
-
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
   // Center offset to keep the active card centered
-  const getPadding = () => {
-    if (typeof window !== 'undefined') {
-      return window.innerWidth < 640 ? 32 : 80; // 16px * 2 for mobile, 40px * 2 for desktop
-    }
-    return 80;
-  };
-  
+  const getPadding = () => (isMobile ? 32 : 80);
   const centerOffset = containerWidth && cardWidth
     ? (containerWidth - getPadding()) / 2 - cardWidth / 2
     : 0;
 
-  // Handle mouse movement for custom cursor
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setCursorPosition({ x: e.clientX, y: e.clientY });
-  };
-
-  const handleMouseEnter = () => {
-    setShowDragCursor(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowDragCursor(false);
-  };
-
   return (
     <div className="flex flex-col p-4 md:p-6 lg:p-10 overflow-hidden">
-      {/* Custom drag cursor - hidden on mobile */}
-      <motion.div
-        className="fixed pointer-events-none z-50 bg-black text-white rounded-full px-3 py-1 text-sm font-medium transform -translate-x-1/2 -translate-y-1/2 hidden md:block"
-        style={{
-          left: cursorPosition.x,
-          top: cursorPosition.y,
-        }}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{
-          opacity: showDragCursor ? 1 : 0,
-          scale: showDragCursor ? 1 : 0.8,
-        }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
-        drag
-      </motion.div>
-
-      <div className="items-center text-center mb-6 md:mb-8">
+      <div className="items-center text-center mb-2 md:mb-2">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 md:mb-2">Recent Work</h2>
         <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          Check out some of my recent projects that showcase my skills and
-          expertise.
+          Check out some of my recent projects:
         </p>
       </div>
 
       <div ref={containerRef} className="relative w-full overflow-hidden py-8 md:py-12">
+        {/* Carousel navigation arrows */}
         <motion.div
-          className="flex cursor-none select-none md:cursor-none"
+          className="flex select-none"
           style={{ 
             gap: `${gap}px`,
-            paddingLeft: typeof window !== 'undefined' && window.innerWidth < 640 ? '16px' : '40px',
-            paddingRight: typeof window !== 'undefined' && window.innerWidth < 640 ? '16px' : '40px'
-          }}
-          drag="x"
-          dragConstraints={{
-            left: -(projects.length - 1) * (cardWidth + gap),
-            right: 0,
-          }}
-          dragElastic={0.1}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          onDragEnd={(e, info) => {
-            const threshold = typeof window !== 'undefined' && window.innerWidth < 640 ? 30 : 50;
-            if (info.offset.x > threshold && currentIndex > 0)
-              setCurrentIndex(currentIndex - 1);
-            else if (
-              info.offset.x < -threshold &&
-              currentIndex < projects.length - 1
-            )
-              setCurrentIndex(currentIndex + 1);
+            paddingLeft: isMobile ? '16px' : '40px',
+            paddingRight: isMobile ? '16px' : '40px'
           }}
           animate={{ x: -currentIndex * (cardWidth + gap) + centerOffset }}
           transition={{ 
             type: "spring", 
-            damping: typeof window !== 'undefined' && window.innerWidth < 640 ? 25 : 20, 
-            stiffness: typeof window !== 'undefined' && window.innerWidth < 640 ? 200 : 300 
+            damping: isMobile ? 25 : 20, 
+            stiffness: isMobile ? 200 : 300 
+          }}
+          drag={isMobile ? 'x' : false}
+          dragConstraints={{ left: -((projects.length - 1) * (cardWidth + gap)), right: 0 }}
+          dragElastic={0.15}
+          onDragEnd={(e, info) => {
+            if (isMobile) {
+              if (info.offset.x < -50 && currentIndex < projects.length - 1) {
+                setCurrentIndex(currentIndex + 1);
+              } else if (info.offset.x > 50 && currentIndex > 0) {
+                setCurrentIndex(currentIndex - 1);
+              }
+            }
           }}
         >
           {projects.map((project, i) => {
             const isCenter = i === currentIndex;
-            const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
             const cardHeight = isMobile ? cardWidth * 1.1 : cardWidth * 0.6;
-            
             return (
               <motion.div
                 key={i}
-                className="flex-shrink-0 p-3 sm:p-4 md:p-6 border rounded-lg md:rounded-xl bg-white shadow-lg hover:shadow-xl transition-shadow"
+                className="flex-shrink-0 relative border rounded-lg md:rounded-xl bg-black shadow-lg hover:shadow-xl transition-shadow cursor-pointer overflow-hidden p-0"
                 style={{ 
                   width: cardWidth, 
                   height: cardHeight,
@@ -182,22 +138,63 @@ export default function RecentWorksSection() {
                   opacity: 1
                 }}
                 whileTap={{ scale: 0.96 }}
+                onClick={() => {
+                  if (isCenter) {
+                    setModalProject(project);
+                  } else {
+                    setCurrentIndex(i);
+                  }
+                }}
               >
-                <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-2 sm:mb-3 md:mb-2 leading-tight">{project.title}</h3>
-                <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed">{project.description}</p>
+                {/* Media fills card */}
+                {project && project.url && (
+                  project.mimeType?.startsWith('video') ? (
+                    <video
+                      src={project.url}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      controls={false}
+                      muted
+                      playsInline
+                      preload="metadata"
+                      tabIndex={-1}
+                      style={{ pointerEvents: 'none' }}
+                    />
+                  ) : (
+                    <img
+                      src={project.url}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  )
+                )}
+                {/* Overlay for text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+                {/* Title and description overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 z-20 text-left">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 text-white drop-shadow-lg">{project.title}</h3>
+                  <p className="text-xs sm:text-sm md:text-base text-white drop-shadow-lg line-clamp-3">{project.description}</p>
+                </div>
               </motion.div>
             );
           })}
         </motion.div>
       </div>
 
-      {/* Navigation dots */}
-      <div className="flex justify-center mt-6 md:mt-8 space-x-2">
+      {/* Navigation dots and arrows */}
+      <div className="flex flex-row items-center space-x-2 w-full md:w-auto justify-center mt-2">
+        <button
+          onClick={() => setCurrentIndex((prev) => Math.max(prev - 1, 0))}
+          className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 text-black disabled:opacity-30 transition-all duration-200"
+          aria-label="Previous project"
+          disabled={currentIndex === 0}
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+        </button>
         {projects.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrentIndex(i)}
-            className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 ${
+            className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 mx-1 ${
               i === currentIndex 
                 ? "bg-black scale-110" 
                 : "bg-gray-300 hover:bg-gray-400 active:bg-gray-500"
@@ -205,12 +202,120 @@ export default function RecentWorksSection() {
             aria-label={`Go to project ${i + 1}`}
           />
         ))}
+        <button
+          onClick={() => setCurrentIndex((prev) => Math.min(prev + 1, projects.length - 1))}
+          className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 text-black disabled:opacity-30 transition-all duration-200"
+          aria-label="Next project"
+          disabled={currentIndex === projects.length - 1}
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+      {/* View More Buttons - below navigation dots/arrows */}
+      <div className="flex flex-row gap-2 mt-6 mb-3 md:mb-0 w-full justify-center">
+        <a
+          href="/photography"
+          className="flex-1 md:flex-none px-4 py-2 rounded-lg bg-black text-white font-semibold shadow hover:bg-gray-900 transition-colors text-sm md:text-md text-center min-w-[120px]"
+        >
+          View Photos
+        </a>
+        <a
+          href="/videography"
+          className="flex-1 md:flex-none px-4 py-2 rounded-lg bg-black text-white font-semibold shadow hover:bg-gray-900 transition-colors text-sm md:text-md text-center min-w-[120px]"
+        >
+          View Videos
+        </a>
       </div>
 
       {/* Mobile swipe indicator */}
       <div className="flex justify-center mt-4 md:hidden">
         <p className="text-xs text-gray-500">← Swipe to navigate →</p>
       </div>
+
+      {/* Modal for enlarged project */}
+      {modalProject && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
+          onClick={() => setModalProject(null)}
+        >
+          {/* Left arrow */}
+          <button
+            onClick={e => {
+              e.stopPropagation();
+              const idx = projects.findIndex(p => p.title === modalProject.title);
+              if (idx > 0) {
+                setModalProject(projects[idx - 1]);
+                setCurrentIndex(idx - 1);
+              }
+            }}
+            className="absolute left-1 md:left-6 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 md:p-3 min-w-[40px] min-h-[40px] md:min-w-[48px] md:min-h-[48px] rounded-full z-50 disabled:opacity-30 transition-all duration-200 hover:bg-opacity-90 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white flex items-center justify-center"
+            style={{ touchAction: 'manipulation' }}
+            aria-label="Previous project"
+            disabled={projects.findIndex(p => p.title === modalProject.title) === 0}
+          >
+            <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          </button>
+          {/* Right arrow */}
+          <button
+            onClick={e => {
+              e.stopPropagation();
+              const idx = projects.findIndex(p => p.title === modalProject.title);
+              if (idx < projects.length - 1) {
+                setModalProject(projects[idx + 1]);
+                setCurrentIndex(idx + 1);
+              }
+            }}
+            className="absolute right-1 md:right-6 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 md:p-3 min-w-[40px] min-h-[40px] md:min-w-[48px] md:min-h-[48px] rounded-full z-50 disabled:opacity-30 transition-all duration-200 hover:bg-opacity-90 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white flex items-center justify-center"
+            style={{ touchAction: 'manipulation' }}
+            aria-label="Next project"
+            disabled={projects.findIndex(p => p.title === modalProject.title) === projects.length - 1}
+          >
+            <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          </button>
+          <div
+            className="relative w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-black rounded-xl shadow-xl p-0 text-center mx-2 sm:mx-4 overflow-hidden flex flex-col"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setModalProject(null)}
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white bg-black bg-opacity-80 p-1.5 sm:p-2 rounded-full hover:bg-red-400 hover:text-white hover:bg-opacity-100 transition-all z-20 focus:outline-none focus:ring-2 focus:ring-red-400"
+              aria-label="Close modal"
+            >
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            {/* Media fills modal with aspect ratio */}
+            <div className="relative w-full aspect-[16/9] bg-black">
+              {modalProject && modalProject.url && (
+                modalProject.mimeType?.startsWith('video') ? (
+                  <video
+                    src={modalProject.url}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    controls
+                    autoPlay
+                    muted
+                    playsInline
+                    preload="auto"
+                    style={{ background: '#000' }}
+                  />
+                ) : (
+                  <img
+                    src={modalProject.url}
+                    alt={modalProject.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                )
+              )}
+              {/* Overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10" />
+              {/* Title and description overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-8 z-20 text-left">
+                <h3 className="text-2xl font-bold mb-4 text-white drop-shadow-lg">{modalProject.title}</h3>
+                <p className="text-base text-white drop-shadow-lg line-clamp-4">{modalProject.description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

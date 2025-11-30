@@ -71,6 +71,8 @@ export interface Config {
     videos: Video;
     emails: Email;
     profile: Profile;
+    'landing-videos': LandingVideo;
+    'recent-works': RecentWork;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +84,8 @@ export interface Config {
     videos: VideosSelect<false> | VideosSelect<true>;
     emails: EmailsSelect<false> | EmailsSelect<true>;
     profile: ProfileSelect<false> | ProfileSelect<true>;
+    'landing-videos': LandingVideosSelect<false> | LandingVideosSelect<true>;
+    'recent-works': RecentWorksSelect<false> | RecentWorksSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -218,6 +222,46 @@ export interface Profile {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing-videos".
+ */
+export interface LandingVideo {
+  id: number;
+  label: string;
+  type: 'desktop' | 'mobile';
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recent-works".
+ */
+export interface RecentWork {
+  id: number;
+  title: string;
+  description: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -262,6 +306,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'profile';
         value: number | Profile;
+      } | null)
+    | ({
+        relationTo: 'landing-videos';
+        value: number | LandingVideo;
+      } | null)
+    | ({
+        relationTo: 'recent-works';
+        value: number | RecentWork;
       } | null)
     | ({
         relationTo: 'users';
@@ -398,6 +450,44 @@ export interface EmailsSelect<T extends boolean = true> {
  */
 export interface ProfileSelect<T extends boolean = true> {
   alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "landing-videos_select".
+ */
+export interface LandingVideosSelect<T extends boolean = true> {
+  label?: T;
+  type?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recent-works_select".
+ */
+export interface RecentWorksSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
