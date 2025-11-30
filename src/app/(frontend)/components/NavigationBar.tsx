@@ -34,8 +34,11 @@ export default function NavigationBar() {
       router.push("/");
       // Add delay to wait for page navigation to complete
       setTimeout(() => {
+        // Recalculate scroll and resize state
+        window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event('scroll'));
         scrollToSection(url);
-      }, 300); // 300ms delay
+      }, 350); // Slightly longer delay for navigation/render
     }
   };
 
