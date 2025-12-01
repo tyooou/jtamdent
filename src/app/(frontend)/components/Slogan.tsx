@@ -68,7 +68,7 @@ export default function Slogan() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 md:px-4 md:py-2 rounded-full hover:bg-zinc-800 active:bg-zinc-900 text-base sm:text-base md:text-sm whitespace-nowrap transition-colors focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:outline-none disabled:opacity-50 w-full sm:w-auto"
+            className="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 md:px-4 md:py-2 rounded-full hover:bg-zinc-800 active:bg-zinc-900 text-base sm:text-base md:text-sm whitespace-nowrap transition-colors focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:outline-none disabled:opacity-50 w-full sm:w-auto cursor-pointer"
           >
             {isSubmitting ? "Sending..." : "Send"}
           </button>

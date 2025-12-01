@@ -63,22 +63,6 @@ export default function GalleryFilters({
             ))}
           </div>
         </div>
-
-        {/* Sort Dropdown - Mobile */}
-        <div className="space-y-2">
-          <span className="text-sm text-gray-600 block">Sort by</span>
-          <select
-            value={selectedSort}
-            onChange={(e) => handleSortChange(e.target.value)}
-            className="w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-black focus:border-transparent"
-          >
-            {filters.map((filter) => (
-              <option key={filter} value={filter}>
-                {filter}
-              </option>
-            ))}
-          </select>
-        </div>
       </div>
 
       {/* Desktop Layout - Horizontal */}
@@ -101,22 +85,6 @@ export default function GalleryFilters({
               </button>
             ))}
           </div>
-        </div>
-
-        {/* Sort Dropdown - Desktop */}
-        <div className="flex items-center space-x-3 text-sm">
-          <span className="text-gray-600">Sort by</span>
-          <select
-            value={selectedSort}
-            onChange={(e) => handleSortChange(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-black focus:border-transparent cursor-pointer"
-          >
-            {filters.map((filter) => (
-              <option key={filter} value={filter}>
-                {filter}
-              </option>
-            ))}
-          </select>
         </div>
       </div>
     </div>

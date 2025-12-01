@@ -189,7 +189,7 @@ export default function RecentWorksSection() {
       <div className="flex flex-row items-center space-x-2 w-full justify-center">
         <button
           onClick={() => setCurrentIndex((prev) => Math.max(prev - 1, 0))}
-          className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 text-black disabled:opacity-30 transition-all duration-200"
+          className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 text-black disabled:opacity-30 transition-all duration-200 cursor-pointer"
           aria-label="Previous project"
           disabled={currentIndex === 0}
         >
@@ -200,16 +200,16 @@ export default function RecentWorksSection() {
             key={i}
             onClick={() => setCurrentIndex(i)}
             className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 mx-1 ${
-              i === currentIndex 
-                ? "bg-black scale-110" 
-                : "bg-gray-300 hover:bg-gray-400 active:bg-gray-500"
+              i === currentIndex
+                ? "bg-black scale-110"
+                : "bg-gray-300 hover:bg-gray-400 active:bg-gray-500 cursor-pointer"
             }`}
             aria-label={`Go to project ${i + 1}`}
           />
         ))}
         <button
           onClick={() => setCurrentIndex((prev) => Math.min(prev + 1, projects.length - 1))}
-          className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 text-black disabled:opacity-30 transition-all duration-200"
+          className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 text-black disabled:opacity-30 transition-all duration-200 cursor-pointer"
           aria-label="Next project"
           disabled={currentIndex === projects.length - 1}
         >
@@ -253,7 +253,7 @@ export default function RecentWorksSection() {
                 setCurrentIndex(idx - 1);
               }
             }}
-            className="absolute left-1 md:left-6 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 md:p-3 min-w-[40px] min-h-[40px] md:min-w-[48px] md:min-h-[48px] rounded-full z-50 disabled:opacity-30 transition-all duration-200 hover:bg-opacity-90 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white flex items-center justify-center"
+            className="absolute left-1 md:left-6 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 md:p-3 min-w-[40px] min-h-[40px] md:min-w-[48px] md:min-h-[48px] rounded-full z-50 disabled:opacity-30 transition-all duration-200 hover:bg-opacity-90 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white flex items-center justify-center cursor-pointer"
             style={{ touchAction: 'manipulation' }}
             aria-label="Previous project"
             disabled={projects.findIndex(p => p.title === modalProject.title) === 0}
@@ -270,7 +270,7 @@ export default function RecentWorksSection() {
                 setCurrentIndex(idx + 1);
               }
             }}
-            className="absolute right-1 md:right-6 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 md:p-3 min-w-[40px] min-h-[40px] md:min-w-[48px] md:min-h-[48px] rounded-full z-50 disabled:opacity-30 transition-all duration-200 hover:bg-opacity-90 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white flex items-center justify-center"
+            className="absolute right-1 md:right-6 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 md:p-3 min-w-[40px] min-h-[40px] md:min-w-[48px] md:min-h-[48px] rounded-full z-50 disabled:opacity-30 transition-all duration-200 hover:bg-opacity-90 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white flex items-center justify-center cursor-pointer"
             style={{ touchAction: 'manipulation' }}
             aria-label="Next project"
             disabled={projects.findIndex(p => p.title === modalProject.title) === projects.length - 1}
@@ -283,7 +283,7 @@ export default function RecentWorksSection() {
           >
             <button
               onClick={() => setModalProject(null)}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white bg-black bg-opacity-80 p-1.5 sm:p-2 rounded-full hover:bg-red-400 hover:text-white hover:bg-opacity-100 transition-all z-20 focus:outline-none focus:ring-2 focus:ring-red-400"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white bg-black bg-opacity-80 p-1.5 sm:p-2 rounded-full hover:bg-red-400 hover:text-white hover:bg-opacity-100 transition-all z-20 focus:outline-none focus:ring-2 focus:ring-red-400 cursor-pointer"
               aria-label="Close modal"
             >
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>

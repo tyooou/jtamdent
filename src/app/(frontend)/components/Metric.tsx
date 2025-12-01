@@ -11,7 +11,7 @@ export default function Metric({
 }) {
   return (
     <div
-      className={`rounded rounded-2xl border flex flex-col items-left p-4 md:p-6 lg:p-8 transition-transform duration-200 hover:scale-95 cursor-pointer ${className}`}
+      className={`rounded rounded-2xl border flex flex-col items-left p-4 md:p-6 lg:p-8 transition-transform duration-200 hover:scale-95 ${className}`}
     >
       <CountUp
         target={number}

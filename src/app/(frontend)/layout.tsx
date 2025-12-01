@@ -20,7 +20,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
-      <body className={interTight.className}>
+      <body className={interTight.className + " selection:bg-transparent selection:text-inherit"}>
         <PageTransition>{children}</PageTransition>
         <SpeedInsights/>
         <Analytics />

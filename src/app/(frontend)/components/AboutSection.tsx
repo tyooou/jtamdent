@@ -78,7 +78,7 @@ export default function AboutSection() {
           <br /> From intra-oral macro photography to full-scale videography, my aim is to support dental professionals in presenting their work with clarity and impact. With a deep understanding of the industry, I simplify complex clinical work into clear, engaging visuals that build trust and strengthen your brand online.
         </p>
         <button
-          className="mt-4 md:mt-6 px-6 py-3 bg-black text-white rounded hover:bg-gray-800 transition text-sm sm:text-md w-full sm:w-auto rounded-xl"
+          className="mt-4 md:mt-6 px-6 py-3 bg-black text-white rounded hover:bg-gray-800 transition text-sm sm:text-md w-full sm:w-auto rounded-xl cursor-pointer"
           type="button"
           onClick={() => {
             // Try both hash and scroll for robustness
