@@ -37,7 +37,7 @@ export default function ContactForm() {
         alert("Failed to send message. Please try again later.");
       }
     } catch (err) {
-      alert("Failed to send message. Please try again later.");
+      alert(`Failed to send message. Please try again later. ${err}`);
     }
   };
 

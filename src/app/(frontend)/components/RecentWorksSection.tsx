@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 
 interface Project {
   title: string;
@@ -27,14 +28,15 @@ export default function RecentWorksSection() {
         const mapped = (data.docs || []).map((doc: Project) => ({
           title: doc.title,
           description: doc.description,
-          url: doc.url?.startsWith('http') ? doc.url : `${window.location.origin}${doc.url}`,
+          url: doc.url?.startsWith('http') ? doc.url : doc.url,
           mimeType: doc.mimeType,
           filename: doc.filename,
           
         }));
         setProjects(mapped);
       } catch (err) {
-        setProjects([]);
+        setProjects([])
+        console.error("Error fetching recent works:", err);
       }
     };
     fetchProjects();
@@ -160,10 +162,13 @@ export default function RecentWorksSection() {
                       style={{ pointerEvents: 'none' }}
                     />
                   ) : (
-                    <img
+                    <Image
                       src={project.url}
                       alt={project.title}
+                      fill
                       className="absolute inset-0 w-full h-full object-cover"
+                      sizes="(max-width: 768px) 100vw, 700px"
+                      priority={i === 0}
                     />
                   )
                 )}
@@ -181,7 +186,7 @@ export default function RecentWorksSection() {
       </div>
 
       {/* Navigation dots and arrows */}
-      <div className="flex flex-row items-center space-x-2 w-full md:w-auto justify-center mt-2">
+      <div className="flex flex-row items-center space-x-2 w-full justify-center">
         <button
           onClick={() => setCurrentIndex((prev) => Math.max(prev - 1, 0))}
           className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 text-black disabled:opacity-30 transition-all duration-200"
@@ -298,10 +303,13 @@ export default function RecentWorksSection() {
                     style={{ background: '#000' }}
                   />
                 ) : (
-                  <img
+                  <Image
                     src={modalProject.url}
                     alt={modalProject.title}
+                    fill
                     className="absolute inset-0 w-full h-full object-cover"
+                    sizes="(max-width: 768px) 100vw, 900px"
+                    priority
                   />
                 )
               )}

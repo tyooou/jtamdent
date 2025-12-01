@@ -49,8 +49,6 @@ export default function VideoGallerySection({
       />
       <VideoGallery
         url={url}
-        title={title}
-        description={description}
         columns={columns}
         selectedCategory={selectedCategory}
         sortBy={sortBy}

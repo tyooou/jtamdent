@@ -1,6 +1,5 @@
 "use client";
 
-import { select } from "payload/shared";
 import { useEffect, useState } from "react";
 
 type VideoGalleryProps = {
@@ -49,8 +48,6 @@ type VideoGalleryComponentProps = {
 
 export default function VideoGallery({
   url,
-  title,
-  description,
   columns = { mobile: 1, tablet: 2, desktop: 4 },
   selectedCategory = "All",
   sortBy = "Most Recent",
@@ -61,10 +58,7 @@ export default function VideoGallery({
     null
   );
   // Add state for filters
-  const [category, setCategory] = useState<string>(selectedCategory);
   const [sort, setSort] = useState<string>(sortBy);
-  // Track loaded state for each video
-  const [videoLoaded, setVideoLoaded] = useState<{ [id: string]: boolean }>({});
 
   useEffect(() => {
     // Fetch all gallery data from paginated API
@@ -250,10 +244,6 @@ export default function VideoGallery({
     const videosInLastRow = total % 17 === 0 ? 17 : total % 17;
     if (i >= total - videosInLastRow) return "col-span-1 row-span-1";
     return pattern[i % 17] || "col-span-1 row-span-1";
-  };
-
-  const handleVideoLoaded = (id: string) => {
-    setVideoLoaded((prev) => ({ ...prev, [id]: true }));
   };
 
   // When a grid item is clicked, open modal with full video

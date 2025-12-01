@@ -2,13 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
-interface Profile {
-    id: string;
-    alt: string;
-    filename: string | null;
-    url: string | null;
-}
-
 export async function GET(request: NextRequest) {
   try {
     const payload = await getPayload({ config });

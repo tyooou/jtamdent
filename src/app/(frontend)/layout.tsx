@@ -4,7 +4,6 @@ import "./globals.css";
 import PageTransition from "./components/PageTransition";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
-import path from "path";
 
 export const metadata: Metadata = {
   title: "jtamdent - Dental Photography & Videography",
@@ -18,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </head>
       <body className={interTight.className}>
         <PageTransition>{children}</PageTransition>
         <SpeedInsights/>

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import NavigationLink from "./NavigationLink";
 import React from "react";
 
 interface LogoProps {

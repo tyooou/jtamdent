@@ -53,8 +53,6 @@ export default function GallerySection({
       />
       <Gallery
         url={url}
-        title={title}
-        description={description}
         columns={columns}
         enableThumbnails={enableThumbnails}
         thumbnailQuality={thumbnailQuality}

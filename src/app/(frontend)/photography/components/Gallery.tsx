@@ -48,8 +48,6 @@ type GalleryComponentProps = {
 
 export default function Gallery({
   url,
-  title,
-  description,
   columns = { mobile: 1, tablet: 2, desktop: 4 },
   enableThumbnails = true,
   thumbnailQuality = "medium",
@@ -262,7 +260,7 @@ export default function Gallery({
     return `grid ${mobileClass} ${tabletClass} ${mediumClass} ${desktopClass} gap-3 md:gap-4 lg:gap-6`;
   };
 
-  const getTileClass = (i: number, total: number) => {
+  const getTileClass = (i: number) => {
     i = i % 17;
     if (i % 7 === 0) return "col-span-2 row-span-2";
     if (i % 7 === 1) return "col-span-1 row-span-2";
@@ -294,7 +292,7 @@ export default function Gallery({
         {filteredImages.map((image, i) => (
           <div
             key={image.id}
-            className={`bg-white ... ${getTileClass(i, filteredImages.length)}`}
+            className={`bg-white ... ${getTileClass(i)}`}
             onClick={() => setSelectedImage(image)}
           >
             {/* Image container with variable aspect ratio - no text */}

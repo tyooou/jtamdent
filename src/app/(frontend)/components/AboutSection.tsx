@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 type ProfileData = {
   id: string;
@@ -50,16 +51,22 @@ export default function AboutSection() {
         {loading ? (
           <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-gray-200 animate-pulse rounded"></div>
         ) : profileImage ? (
-          <img
+          <Image
             src={profileImage.url}
             alt={profileImage.alt || "Jaidyn Tam"}
+            width={384}
+            height={384}
             className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-cover rounded shadow-lg"
+            priority
           />
         ) : (
-          <img
+          <Image
             src="/jaidyn-tam.jpg"
             alt="Jaidyn Tam"
+            width={384}
+            height={384}
             className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 object-cover rounded shadow-lg"
+            priority
           />
         )}
       </div>

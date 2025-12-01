@@ -36,8 +36,9 @@ export default function Slogan() {
           errorData.message || "Something went wrong. Please try again."
         );
       }
-    } catch (error) {
+    } catch (err) {
       setMessage("Network error. Please try again.");
+      console.error("Error submitting email:", err);
     } finally {
       setIsSubmitting(false);
     }
