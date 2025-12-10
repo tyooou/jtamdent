@@ -14,7 +14,6 @@ type VideoGalleryFiltersProps = {
 
 export default function VideoGalleryFilters({
   onCategoryChange,
-  onSortChange,
   selectedCategory: initialCategory = "All",
   selectedSort: initialSort = "Most Recent",
 }: VideoGalleryFiltersProps) {
@@ -33,11 +32,6 @@ export default function VideoGalleryFilters({
   const handleCategoryChange = (category: string) => {
     setSelectedNode(category);
     onCategoryChange?.(category);
-  };
-
-  const handleSortChange = (sort: string) => {
-    setSelectedSort(sort);
-    onSortChange?.(sort);
   };
 
   return (
@@ -62,22 +56,6 @@ export default function VideoGalleryFilters({
               </button>
             ))}
           </div>
-        </div>
-
-        {/* Sort Dropdown - Mobile */}
-        <div className="space-y-2">
-          <span className="text-sm text-gray-600 block"></span>
-          <select
-            value={selectedSort}
-            onChange={(e) => handleSortChange(e.target.value)}
-            className="w-full px-4 py-3 text-sm border border-gray-300 rounded-lg bg-white text-black focus:ring-2 focus:ring-black focus:border-transparent"
-          >
-            {filters.map((filter) => (
-              <option key={filter} value={filter}>
-                {filter}
-              </option>
-            ))}
-          </select>
         </div>
       </div>
 
