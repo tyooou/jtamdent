@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import Slogan from "./Slogan";
 
 export default function LandingVideo() {
+  const getInitialIsMobile = () => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return false;
+  };
   const [showScroll, setShowScroll] = useState(true);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(getInitialIsMobile);
 
   // Device type detection (client only)
   useEffect(() => {
