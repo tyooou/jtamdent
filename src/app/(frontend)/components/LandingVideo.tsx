@@ -64,7 +64,7 @@ export default function LandingVideo() {
           muted
           playsInline
           className="w-full h-full object-cover absolute inset-0"
-          preload="metadata"
+          preload="auto"
         >
           <source src={videoUrl} type="video/mp4" />
           Your browser does not support the video tag.

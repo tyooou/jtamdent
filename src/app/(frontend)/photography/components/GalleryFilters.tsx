@@ -42,26 +42,23 @@ export default function GalleryFilters({
 
   return (
     <div className="sticky top-16 bg-white py-4 z-20 border-b border-gray-100">
-      {/* Mobile Layout - Stacked */}
-      <div className="block md:hidden space-y-4">
-        {/* Category Filter Buttons - Mobile */}
-        <div className="space-y-2">
-          <span className="text-sm text-gray-600 block">Show</span>
-          <div className="grid grid-cols-2 gap-2">
-            {buttons.map((button) => (
-              <button
-                key={button}
-                className={`px-4 py-3 text-sm border rounded-lg transition-colors ${
-                  getSelectedNode === button
-                    ? "bg-black border-black text-white"
-                    : "bg-white border-gray-300 text-black hover:bg-gray-50"
-                }`}
-                onClick={() => handleCategoryChange(button)}
-              >
-                {button}
-              </button>
-            ))}
-          </div>
+      {/* Mobile Layout - Row */}
+      <div className="block md:hidden">
+        <div className="flex flex-row gap-3 w-full items-center">
+          <span className="text-md text-gray-600">Show</span>
+          {buttons.map((button) => (
+            <button
+              key={button}
+              className={`flex-1 px-2 py-2 text-sm border rounded-lg transition-colors ${
+                getSelectedNode === button
+                  ? "bg-black border-black text-white"
+                  : "bg-white border-gray-300 text-black hover:bg-gray-50"
+              }`}
+              onClick={() => handleCategoryChange(button)}
+            >
+              {button}
+            </button>
+          ))}
         </div>
       </div>
 

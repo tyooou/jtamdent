@@ -268,7 +268,7 @@ export default function VideoGallery({
       )}
 
       {/* Grid layout for videos, preview is first frame using <video> element */}
-      <div className={getGridClasses() + " auto-rows-[140px] md:auto-rows-[180px] lg:auto-rows-[220px]"}>
+      <div className={getGridClasses() + " auto-rows-[200px] md:auto-rows-[200px] lg:auto-rows-[220px]"}>
         {filteredVideos.map((video, i) => (
           <div
             key={video.id}
@@ -282,7 +282,7 @@ export default function VideoGallery({
             <div className="aspect-video w-full bg-gray-200 relative flex items-center justify-center rounded-lg md:rounded-xl overflow-hidden">
               <video
                 src={video.url}
-                className="w-full h-full object-cover pointer-events-none select-none bg-black"
+                className="w-full h-full object-contain pointer-events-none select-none bg-black"
                 preload="metadata"
                 tabIndex={-1}
                 playsInline

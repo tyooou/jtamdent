@@ -141,23 +141,17 @@ export default function Gallery({
     // Sort images
     if (sortBy) {
       filtered.sort((a, b) => {
-        switch (sortBy) {
-          case "Most Recent":
-            return (
-              new Date(b.date || "").getTime() -
-              new Date(a.date || "").getTime()
-            );
-          case "Oldest":
-            return (
-              new Date(a.date || "").getTime() -
-              new Date(b.date || "").getTime()
-            );
-          case "Most Popular":
-            // Assuming there's a popularity field, fallback to title for now
-            return (a.title || "").localeCompare(b.title || "");
-          default:
-            return 0;
+        if (sortBy === "Most Recent") {
+          return new Date(b.date || "").getTime() - new Date(a.date || "").getTime();
         }
+        if (sortBy === "Oldest") {
+          return new Date(a.date || "").getTime() - new Date(b.date || "").getTime();
+        }
+        if (sortBy === "Most Popular") {
+          // Assuming there's a popularity field, fallback to title for now
+          return (a.title || "").localeCompare(b.title || "");
+        } 
+        return 0;
       });
     }
 
@@ -288,19 +282,19 @@ export default function Gallery({
         </div>
       )}
       {/* Grid layout for images */}
-      <div className={getGridClasses() + " auto-rows-[140px] md:auto-rows-[180px] lg:auto-rows-[220px]"}>
+      <div className={getGridClasses() + " auto-rows-auto md:auto-rows-[180px] lg:auto-rows-[220px]"}> {/* mobile: auto row height for aspect ratio */}
         {filteredImages.map((image, i) => (
           <div
             key={image.id}
-            className={`bg-white ... ${getTileClass(i)}`}
+            className={`bg-white ... col-span-1 row-span-1 md:${getTileClass(i)}`}
             onClick={() => setSelectedImage(image)}
           >
             {/* Image container with variable aspect ratio - no text */}
-            <div className="w-full h-full bg-gray-200 rounded-lg md:rounded-xl overflow-hidden">
+            <div className="w-full relative bg-gray-200 rounded-lg md:rounded-xl overflow-hidden">
               <img
                 src={getThumbnailUrl(image)}
                 alt={image.title}
-                className="w-full h-full object-cover hover:scale-105 active:scale-95 transition-transform duration-300"
+                className="w-full h-auto object-cover hover:scale-105 active:scale-95 transition-transform duration-300"
                 loading="lazy"
                 onError={(e) => {
                   console.error(

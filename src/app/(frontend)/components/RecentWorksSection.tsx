@@ -278,7 +278,7 @@ export default function RecentWorksSection() {
             <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
           <div
-            className="relative w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-black rounded-xl shadow-xl p-0 text-center mx-2 sm:mx-4 overflow-hidden flex flex-col"
+            className="relative w-full max-w-3xl lg:max-w-4xl rounded-xl shadow-xl p-0 text-center mx-2 sm:mx-4 overflow-hidden flex flex-col"
             onClick={e => e.stopPropagation()}
           >
             <button
@@ -288,28 +288,26 @@ export default function RecentWorksSection() {
             >
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
-            {/* Media fills modal with aspect ratio */}
-            <div className="relative w-full aspect-[16/9] bg-black">
+            {/* Media fills modal with natural aspect ratio */}
+            <div className="relative w-full flex items-center justify-center inset-0" style={{ minHeight: '500px', minWidth: '200px' }}>
               {modalProject && modalProject.url && (
                 modalProject.mimeType?.startsWith('video') ? (
                   <video
                     src={modalProject.url}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     controls
                     autoPlay
                     muted
                     playsInline
                     preload="auto"
-                    style={{ background: '#000' }}
+                    style={{ background: '#000', maxHeight: '80vh' }}
                   />
                 ) : (
                   <Image
                     src={modalProject.url}
                     alt={modalProject.title}
                     fill
-                    className="absolute inset-0 w-full h-full object-cover"
-                    sizes="(max-width: 768px) 100vw, 900px"
-                    priority
+                    className="object-contain"
                   />
                 )
               )}
