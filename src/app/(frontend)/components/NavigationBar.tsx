@@ -78,9 +78,8 @@ export default function NavigationBar() {
   return (
     <div className="h-16 md:h-28 bg-black">
       <nav
-        className="bg-black fixed top-0 left-1/2 z-50 transition-all duration-200"
+        className="bg-black fixed top-0 left-0 w-full z-50 transition-all duration-200"
         style={{
-          transform: "translateX(-50%)",
           width: "100%",
           height: scrolled ? "64px" : isMobile ? "64px" : "112px",
           transition: "height 0.2s",
