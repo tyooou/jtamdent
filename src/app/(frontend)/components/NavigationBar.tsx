@@ -32,13 +32,22 @@ export default function NavigationBar() {
       scrollToSection(url);
     } else {
       router.push("/");
-      // Use requestAnimationFrame to ensure layout is stable before scrolling
+      // Wait for DOM and navbar to be ready before scrolling
+      let attempts = 0;
+      const tryScroll = () => {
+        const element = document.getElementById(url);
+        const navbarHeight = window.innerWidth < 768 ? 64 : 112;
+        if (element && element.offsetTop > navbarHeight) {
+          scrollToSection(url);
+        } else if (attempts < 20) {
+          attempts++;
+          requestAnimationFrame(tryScroll);
+        }
+      };
       setTimeout(() => {
         setIsMobile(window.innerWidth < 768);
         setScrolled(window.scrollY >= 40);
-        requestAnimationFrame(() => {
-          scrollToSection(url);
-        });
+        tryScroll();
       }, 350);
     }
   };
