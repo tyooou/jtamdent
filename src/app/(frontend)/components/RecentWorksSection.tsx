@@ -80,6 +80,17 @@ export default function RecentWorksSection() {
     ? (containerWidth - getPadding()) / 2 - cardWidth / 2
     : 0;
 
+  useEffect(() => {
+    if (modalProject) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [modalProject]);
+
   return (
     <div className="flex flex-col p-4 md:p-6 lg:p-10 overflow-hidden">
       <div className="items-center text-center mb-2 md:mb-2">
