@@ -80,12 +80,12 @@ export default function UnsubscribePage() {
               </svg>
             </div>
             <p className="text-white text-lg font-medium mb-8">{message}</p>
-            <a
-              href="/"
+            <button
+              onClick={() => (window.location.href = "/")}
               className="inline-block px-8 py-3 bg-white text-black rounded-lg hover:bg-gray-200 transition text-sm font-medium"
             >
               Return to Home
-            </a>
+            </button>
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -135,12 +135,12 @@ export default function UnsubscribePage() {
             </div>
 
             <div className="text-center pt-4">
-              <a
-                href="/"
-                className="text-sm text-gray-500 hover:text-white transition"
+              <button
+                onClick={() => (window.location.href = "/")}
+                className="text-sm text-gray-500 hover:text-white transition bg-none border-none cursor-pointer p-0"
               >
                 Changed your mind? Return to home.
-              </a>
+              </button>
             </div>
           </form>
         )}

@@ -59,15 +59,10 @@ export async function POST(request: NextRequest) {
       { message: "Successfully unsubscribed", id: result.id },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("Unsubscribe error:", error);
-    console.error("Error details:", {
-      message: error?.message,
-      stack: error?.stack,
-      name: error?.name,
-    });
     return NextResponse.json(
-      { error: error?.message || "Failed to unsubscribe. Please try again later." },
+      { error: "Failed to unsubscribe. Please try again later." },
       { status: 500 }
     );
   }
