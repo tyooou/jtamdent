@@ -2,54 +2,56 @@ import { useEffect, useState } from "react";
 import Slogan from "./Slogan";
 
 export default function LandingVideo() {
-  const getInitialIsMobile = () => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth < 768;
-    }
-    return false;
-  };
   const [showScroll, setShowScroll] = useState(true);
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(getInitialIsMobile);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== "undefined" && window.innerWidth < 768);
 
-  // Device type detection (client only)
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Fetch video when device type changes
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const fetchVideo = async () => {
+    
+    const cacheKey = `landing-video-url-${isMobile ? "mobile" : "desktop"}`;
+    
+    (async () => {
       try {
+        // Check if URL is cached
+        const cachedUrl = localStorage.getItem(cacheKey);
+        if (cachedUrl) {
+          setVideoUrl(cachedUrl);
+          return;
+        }
+
+        // Fetch from API
         const type = isMobile ? "mobile" : "desktop";
         const res = await fetch(`/api/landing-videos?where[type][equals]=${type}`);
         const data = await res.json();
-        const videoDoc = data.docs?.[0];
-        let fileUrl = videoDoc?.url || null;
+        let fileUrl = data.docs?.[0]?.url || null;
+        
         if (fileUrl && !fileUrl.startsWith("http")) {
-          // Prepend domain if not absolute
           fileUrl = `${window.location.origin}${fileUrl}`;
         }
-        setVideoUrl(fileUrl);
+        
+        if (fileUrl) {
+          localStorage.setItem(cacheKey, fileUrl);
+          setVideoUrl(fileUrl);
+        } else {
+          setVideoUrl(null);
+        }
       } catch (err) {
-        setVideoUrl(null)
+        setVideoUrl(null);
         console.error("Error fetching landing video:", err);
       }
-    };
-    fetchVideo();
+    })();
   }, [isMobile]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Only show scroll indicator if near the top of the page
-      setShowScroll(window.scrollY < 200);
-    };
+    const handleScroll = () => setShowScroll(window.scrollY < 200);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -70,7 +72,7 @@ export default function LandingVideo() {
           Your browser does not support the video tag.
         </video>
       )}
-      <div className="absolute inset-0 bg-black opacity-70 md:opacity-80 pointer-events-none" />
+      <div className="absolute inset-0 bg-black opacity-60 md:opacity-60 pointer-events-none" />
       <div className="absolute inset-0 flex items-center justify-center text-white px-8 sm:px-10 md:px-12">
         <div className="w-full max-w-4xl mx-auto">
           <Slogan />

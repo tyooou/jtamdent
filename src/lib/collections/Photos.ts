@@ -40,16 +40,15 @@ const Photos: CollectionConfig = {
       name: "category",
       type: "select",
       options: [
-        { label: "People", value: "people" },
+        { label: "Commercial", value: "commercial" },
         { label: "Product", value: "product" },
-        { label: "Design", value: "design" },
       ],
       required: true,
-      defaultValue: "people",
+      defaultValue: "commercial",
     },
   ],
   access: {
-    read: () => true, // Allow public read access
+    read: () => true,
   },
 };
 

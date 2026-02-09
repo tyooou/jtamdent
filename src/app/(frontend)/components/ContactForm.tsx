@@ -33,7 +33,6 @@ export default function ContactForm() {
         setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setSent(false), 5000);
       } else {
-        // Optionally handle error
         alert("Failed to send message. Please try again later.");
       }
     } catch (err) {

@@ -18,8 +18,8 @@ export default function MetricSection() {
         });
       },
       {
-        threshold: 0.2, // Trigger when 20% of the section is visible
-        rootMargin: "0px 0px -50px 0px", // Start animation slightly before fully visible
+        threshold: 0.2,
+        rootMargin: "0px 0px -50px 0px",
       }
     );
 

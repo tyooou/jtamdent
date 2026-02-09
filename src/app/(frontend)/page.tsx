@@ -12,13 +12,11 @@ import { useEffect } from "react";
 
 export default function Home() {
   useEffect(() => {
-    // Check if there's a hash in the URL and scroll to it
     const hash = window.location.hash;
     if (hash) {
-      const sectionId = hash.substring(1); // Remove the '#'
+      const sectionId = hash.substring(1);
       const element = document.getElementById(sectionId);
       if (element) {
-        // Small delay to ensure the page is fully loaded
         setTimeout(() => {
           element.scrollIntoView({
             behavior: "smooth",

@@ -24,7 +24,7 @@ const LandingVideo: CollectionConfig = {
     },
   ],
   access: {
-    read: () => true, // Allow public read access
+    read: () => true,
   },
 };
 

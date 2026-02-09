@@ -2,9 +2,6 @@ import { CollectionConfig } from "payload";
 
 const Videos: CollectionConfig = {
   slug: "videos",
-  upload: {
-    mimeTypes: ["video/*"],
-  },
   fields: [
     {
       name: "title",
@@ -26,9 +23,26 @@ const Videos: CollectionConfig = {
       required: true,
       defaultValue: "promotional",
     },
+    {
+      name: "vimeoUrl",
+      label: "Vimeo URL",
+      type: "text",
+      required: true,
+    },
+    {
+      name: "aspectRatio",
+      label: "Aspect Ratio",
+      type: "select",
+      options: [
+        { label: "16:9 (Landscape)", value: "16:9" },
+        { label: "9:16 (Portrait)", value: "9:16" },
+      ],
+      required: false,
+      defaultValue: "16:9",
+    },
   ],
   access: {
-    read: () => true, // Allow public read access
+    read: () => true,
   },
 };
 

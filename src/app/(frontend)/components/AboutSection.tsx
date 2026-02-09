@@ -17,7 +17,6 @@ export default function AboutSection() {
   useEffect(() => {
     const fetchProfileImage = async () => {
       try {
-        // Fetch from Payload CMS API
         const response = await fetch("/api/profile");
         
         if (!response.ok) {
@@ -81,7 +80,6 @@ export default function AboutSection() {
           className="mt-4 md:mt-6 px-6 py-3 bg-black text-white rounded hover:bg-gray-800 transition text-sm sm:text-md w-full sm:w-auto rounded-xl cursor-pointer"
           type="button"
           onClick={() => {
-            // Try both hash and scroll for robustness
             const element = document.getElementById('contact');
             if (element && typeof window !== 'undefined') {
               const navbarHeight = window.innerWidth < 768 ? 64 : 112;

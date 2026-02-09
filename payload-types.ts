@@ -70,6 +70,7 @@ export interface Config {
     photos: Photo;
     videos: Video;
     emails: Email;
+    unsubscribe: Unsubscribe;
     profile: Profile;
     'landing-videos': LandingVideo;
     'recent-works': RecentWork;
@@ -83,6 +84,7 @@ export interface Config {
     photos: PhotosSelect<false> | PhotosSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
     emails: EmailsSelect<false> | EmailsSelect<true>;
+    unsubscribe: UnsubscribeSelect<false> | UnsubscribeSelect<true>;
     profile: ProfileSelect<false> | ProfileSelect<true>;
     'landing-videos': LandingVideosSelect<false> | LandingVideosSelect<true>;
     'recent-works': RecentWorksSelect<false> | RecentWorksSelect<true>;
@@ -131,7 +133,7 @@ export interface Photo {
   id: number;
   title?: string | null;
   description?: string | null;
-  category: 'people' | 'product' | 'design';
+  category: 'commercial' | 'product';
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -179,17 +181,10 @@ export interface Video {
   title?: string | null;
   description?: string | null;
   category: 'promotional' | 'interview';
+  vimeoUrl: string;
+  aspectRatio?: ('16:9' | '9:16') | null;
   updatedAt: string;
   createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -198,6 +193,17 @@ export interface Video {
 export interface Email {
   id: number;
   email: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "unsubscribe".
+ */
+export interface Unsubscribe {
+  id: number;
+  email: string;
+  reason?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -302,6 +308,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'emails';
         value: number | Email;
+      } | null)
+    | ({
+        relationTo: 'unsubscribe';
+        value: number | Unsubscribe;
       } | null)
     | ({
         relationTo: 'profile';
@@ -423,17 +433,10 @@ export interface VideosSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   category?: T;
+  vimeoUrl?: T;
+  aspectRatio?: T;
   updatedAt?: T;
   createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -441,6 +444,16 @@ export interface VideosSelect<T extends boolean = true> {
  */
 export interface EmailsSelect<T extends boolean = true> {
   email?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "unsubscribe_select".
+ */
+export interface UnsubscribeSelect<T extends boolean = true> {
+  email?: T;
+  reason?: T;
   updatedAt?: T;
   createdAt?: T;
 }

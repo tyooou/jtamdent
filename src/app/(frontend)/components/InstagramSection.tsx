@@ -4,9 +4,7 @@ import { useEffect } from "react";
 
 export default function InstagramSection() {
   useEffect(() => {
-    // Load EmbedSocial script
     const loadScript = () => {
-      // Check if script already exists
       if (document.getElementById("EmbedSocialHashtagScript")) {
         return;
       }
@@ -21,7 +19,6 @@ export default function InstagramSection() {
     loadScript();
 
     return () => {
-      // Cleanup script on unmount
       const existingScript = document.getElementById(
         "EmbedSocialHashtagScript"
       );

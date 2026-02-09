@@ -1,5 +1,5 @@
 import NavigationBar from "../components/NavigationBar";
-import VideoGallerySection from "./components/VideoGallerySection";
+import MediaSection from "../components/MediaSection";
 import Footer from "../components/Footer";
 
 export default function Videography() {
@@ -7,15 +7,11 @@ export default function Videography() {
     <div className="min-h-screen flex flex-col">
       <NavigationBar />
       <main className="flex-1">
-        <VideoGallerySection
+        <MediaSection
           url="/api/videos"
           title="Videography"
           description="A collection of my videography work."
-          columns={{
-            mobile: 1,
-            tablet: 2,
-            desktop: 3
-          }}
+          type="video"
         />
       </main>
       <Footer />

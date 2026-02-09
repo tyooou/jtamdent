@@ -10,6 +10,7 @@ import { buildConfig } from "payload";
 import Photos from "@/lib/collections/Photos";
 import Videos from "@/lib/collections/Videos";
 import Emails from "@/lib/collections/Emails";
+import Unsubscribe from "@/lib/collections/Unsubscribe";
 import Profile from "@/lib/collections/Profile";
 import LandingVideo from "@/lib/collections/LandingVideo";
 import RecentWorks from "@/lib/collections/RecentWorks";
@@ -19,7 +20,7 @@ const dirname = path.dirname(filename);
 
 export default buildConfig({
   editor: lexicalEditor({}),
-  collections: [Photos, Videos, Emails, Profile, LandingVideo, RecentWorks],
+  collections: [Photos, Videos, Emails, Unsubscribe, Profile, LandingVideo, RecentWorks],
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
@@ -33,7 +34,6 @@ export default buildConfig({
     s3Storage({
       collections: {
         photos: true,
-        videos: true,
         profile: true,
         'recent-works': true,
         'landing-videos': true,

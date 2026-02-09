@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta property="og:image" content="/og-image.png" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className={interTight.className + " selection:bg-transparent selection:text-inherit"}>

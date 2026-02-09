@@ -9,7 +9,7 @@ import Logo from "./Logo";
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
   if (element && typeof window !== 'undefined') {
-    const navbarHeight = window.innerWidth < 768 ? 64 : 112; // Mobile: 64px, Desktop: 112px
+    const navbarHeight = window.innerWidth < 768 ? 64 : 112;
     const elementPosition = element.offsetTop - navbarHeight;
 
     window.scrollTo({
@@ -27,12 +27,11 @@ export default function NavigationBar() {
   const router = useRouter();
 
   const handleToClick = (url: string) => {
-    setMobileMenuOpen(false); // Close mobile menu when clicking a link
+    setMobileMenuOpen(false);
     if (pathname === "/" || pathname === "") {
       scrollToSection(url);
     } else {
       router.push("/");
-      // Wait for DOM and navbar to be ready before scrolling
       let attempts = 0;
       const tryScroll = () => {
         const element = document.getElementById(url);
@@ -59,7 +58,7 @@ export default function NavigationBar() {
     
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
-      // Close mobile menu when switching to desktop view
+
       if (window.innerWidth >= 768) {
         setMobileMenuOpen(false);
       }
@@ -72,7 +71,6 @@ export default function NavigationBar() {
       }
     };
 
-    // Set initial values
     handleResize();
     
     window.addEventListener("scroll", handleScroll);
@@ -170,10 +168,22 @@ export default function NavigationBar() {
               contact
             </button>
             <div className="py-4 border-b border-gray-800 border-opacity-50">
-              <NavigationLink text="photography" href="/photography" />
+              <NavigationLink 
+                text="photography" 
+                href="/photography" 
+                onClick={() => {
+                  if (pathname === "/photography") setMobileMenuOpen(false);
+                }}
+              />
             </div>
             <div className="py-4">
-              <NavigationLink text="videography" href="/videography" />
+              <NavigationLink 
+                text="videography" 
+                href="/videography" 
+                onClick={() => {
+                  if (pathname === "/videography") setMobileMenuOpen(false);
+                }}
+              />
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@ export default function RecentWorksSection() {
       try {
         const res = await fetch("/api/recent-works?limit=10&sort=-createdAt");
         const data = await res.json();
-        // Map Payload docs to Project[]
+
         const mapped = (data.docs || []).map((doc: Project) => ({
           title: doc.title,
           description: doc.description,
@@ -42,7 +42,6 @@ export default function RecentWorksSection() {
     fetchProjects();
   }, []);
 
-  // Responsive card dimensions and gap (client only, avoid SSR window usage)
   const [cardWidth, setCardWidth] = useState(700);
   const [gap, setGap] = useState(16);
   const [isMobile, setIsMobile] = useState(false);
@@ -74,7 +73,6 @@ export default function RecentWorksSection() {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  // Center offset to keep the active card centered
   const getPadding = () => (isMobile ? 32 : 80);
   const centerOffset = containerWidth && cardWidth
     ? (containerWidth - getPadding()) / 2 - cardWidth / 2
@@ -177,9 +175,12 @@ export default function RecentWorksSection() {
                       src={project.url}
                       alt={project.title}
                       fill
-                      className="absolute inset-0 w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover select-none"
                       sizes="(max-width: 768px) 100vw, 700px"
                       priority={i === 0}
+                      onContextMenu={(e) => e.preventDefault()}
+                      onDragStart={(e) => e.preventDefault()}
+                      draggable={false}
                     />
                   )
                 )}
@@ -318,7 +319,10 @@ export default function RecentWorksSection() {
                     src={modalProject.url}
                     alt={modalProject.title}
                     fill
-                    className="object-contain"
+                    className="object-contain select-none"
+                    onContextMenu={(e) => e.preventDefault()}
+                    onDragStart={(e) => e.preventDefault()}
+                    draggable={false}
                   />
                 )
               )}

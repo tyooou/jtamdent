@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ message: "Profile image not found" }, { status: 404 });
     }
 
-    // Simplified: only use Payload-provided url, no Supabase reconstruction.
     const url = doc.url || null;
 
     return NextResponse.json({

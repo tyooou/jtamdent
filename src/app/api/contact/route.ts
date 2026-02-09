@@ -12,25 +12,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create a Nodemailer transporter using Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.GMAIL_USER, // Your Gmail address
-        pass: process.env.GMAIL_PASS, // App password or Gmail password
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       },
     });
 
-    // Email options
     const mailOptions = {
       from: process.env.GMAIL_USER,
-      to: email, // Send to the email provided in the contact form
+      to: email,
       subject: `New Contact Form Submission from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
       replyTo: process.env.GMAIL_USER,
     };
 
-    // Send the email
     await transporter.sendMail(mailOptions);
 
     return NextResponse.json(

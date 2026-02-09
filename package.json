@@ -29,6 +29,8 @@
     "payload": "^3.54.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "react-grid-gallery": "^1.0.1",
+    "react-photo-album": "^3.4.0",
     "sharp": "^0.34.3"
   },
   "devDependencies": {

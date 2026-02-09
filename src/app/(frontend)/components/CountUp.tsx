@@ -33,7 +33,6 @@ export default function CountUp({
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
 
-      // Ease-in-out quart function for slower deceleration at the end
       const easeInOutQuart = (t: number) => {
         return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
       };
@@ -46,7 +45,7 @@ export default function CountUp({
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
       } else {
-        setCount(target); // Ensure we end at the exact target
+        setCount(target);
       }
     };
 

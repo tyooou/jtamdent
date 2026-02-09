@@ -28,10 +28,10 @@ export default function Footer() {
             <div className="text-gray-400 space-y-2">
               <p className="text-sm md:text-base">email:</p>
               <a 
-                href="mailto:info@jtamdent.com" 
+                href="mailto:info@jtamdent.com.au" 
                 className="hover:text-white transition-colors text-sm md:text-base block"
               >
-                info@jtamdent.com
+                info@jtamdent.com.au
               </a>
             </div>
           </div>

@@ -53,7 +53,7 @@ export default function Slogan() {
         Where every smile gets the spotlight.
       </h2>
       <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto md:mx-0">
-        Want more information? Enter your email below for an info and price brochure:
+              
       </p>
       <form onSubmit={handleSubmit} className="max-w-2xl mx-auto md:mx-0 w-full">
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-2 w-full">
@@ -62,7 +62,7 @@ export default function Slogan() {
             placeholder="Your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-white py-2 px-4 sm:p-3 md:p-2 rounded-full flex-1 text-black text-base sm:text-base md:text-sm min-w-0 focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:outline-none w-full"
+            className="bg-white py-2 px-6 pl-8 sm:px-6 md:px-4 rounded-full flex-1 text-black text-base sm:text-base md:text-sm min-w-0 focus:ring-2 focus:ring-white focus:ring-opacity-50 focus:outline-none w-full"
             disabled={isSubmitting}
           />
           <button
