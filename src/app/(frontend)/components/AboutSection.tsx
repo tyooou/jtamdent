@@ -13,6 +13,31 @@ type ProfileData = {
 export default function AboutSection() {
   const [profileImage, setProfileImage] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [aboutContent, setAboutContent] = useState({
+    heading: "Hey, I'm Jaidyn.",
+    content: "I'm a current dental student with over eight years of photography and videography experience, delivering premium visual content for dental and healthcare professionals.\n\nFrom intra-oral macro photography to full-scale videography, my aim is to support dental professionals in presenting their work with clarity and impact. With a deep understanding of the industry, I simplify complex clinical work into clear, engaging visuals that build trust and strengthen your brand online."
+  });
+
+  useEffect(() => {
+    const fetchAboutContent = async () => {
+      try {
+        const response = await fetch("/api/about");
+        if (response.ok) {
+          const data = await response.json();
+          if (data.heading && data.content) {
+            setAboutContent({
+              heading: data.heading,
+              content: data.content
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching about content:", error);
+      }
+    };
+
+    fetchAboutContent();
+  }, []);
 
   useEffect(() => {
     const fetchProfileImage = async () => {
@@ -70,11 +95,9 @@ export default function AboutSection() {
         )}
       </div>
       <div className="w-full md:w-auto text-left">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">Hey, I&apos;m Jaidyn.</h1>
-        <p className="mt-4 md:mt-6 text-base sm:text-lg max-w-full md:max-w-2xl">
-          I&apos;m a current dental student with over eight years of photography and videography experience, delivering premium visual content for dental and healthcare professionals.
-          <br />
-          <br /> From intra-oral macro photography to full-scale videography, my aim is to support dental professionals in presenting their work with clarity and impact. With a deep understanding of the industry, I simplify complex clinical work into clear, engaging visuals that build trust and strengthen your brand online.
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">{aboutContent.heading}</h1>
+        <p className="mt-4 md:mt-6 text-base sm:text-lg max-w-full md:max-w-2xl whitespace-pre-line">
+          {aboutContent.content}
         </p>
         <button
           className="mt-4 md:mt-6 px-6 py-3 bg-black text-white rounded hover:bg-gray-800 transition text-sm sm:text-md w-full sm:w-auto rounded-xl cursor-pointer"

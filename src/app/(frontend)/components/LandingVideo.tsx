@@ -122,7 +122,7 @@ export default function LandingVideo({ isActive = true }: LandingVideoProps) {
   }, [isActive, isVideoReady, videoUrl]);
 
   return (
-    <div className="relative w-full min-h-screen md:min-h-[80vh] lg:min-h-screen">
+    <div className="relative w-full min-h-screen">
       {videoUrl && (
         <video
           key={videoUrl}
@@ -164,7 +164,7 @@ export default function LandingVideo({ isActive = true }: LandingVideoProps) {
         <div
           className={`absolute bottom-[10vh] sm:bottom-[8vh] left-1/2 -translate-x-1/2 flex flex-col items-center z-20 pointer-events-none transition-opacity duration-500 ${showScroll ? "opacity-100" : "opacity-0"}`}
         >
-          <span className="animate-bounce text-white text-md mb-1 select-none">{isMobile ? "Swipe up" : "Scroll down"}</span>
+          {/* <span className="animate-bounce text-white text-md mb-1 select-none">{isMobile ? "Swipe up" : "Scroll down"}</span> */}
           <svg className="w-6 h-6 animate-bounce text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             {isMobile ? (
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 15l-7-7-7 7" />

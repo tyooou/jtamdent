@@ -1,11 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Slogan() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("‎ ‎ ");
+  const [showMessage, setShowMessage] = useState(true);
+
+  useEffect(() => {
+    if (message && message !== "‎ ‎ ") {
+      setShowMessage(true);
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,11 +85,19 @@ export default function Slogan() {
             {isSubmitting ? "Sending..." : "Send"}
           </button>
         </div>
-        {message && (
-          <p className="mt-4 text-base sm:text-lg md:text-xl text-white text-center md:text-left">
-            {message}
-          </p>
-        )}
+        <AnimatePresence>
+          {message && message !== "‎ ‎ " && showMessage && (
+            <motion.p
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              className="mt-4 text-base sm:text-lg md:text-xl text-white text-center md:text-left"
+            >
+              {message}
+            </motion.p>
+          )}
+        </AnimatePresence>
       </form>
     </div>
   );

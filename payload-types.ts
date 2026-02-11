@@ -74,6 +74,7 @@ export interface Config {
     profile: Profile;
     'landing-videos': LandingVideo;
     'recent-works': RecentWork;
+    about: About;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +89,7 @@ export interface Config {
     profile: ProfileSelect<false> | ProfileSelect<true>;
     'landing-videos': LandingVideosSelect<false> | LandingVideosSelect<true>;
     'recent-works': RecentWorksSelect<false> | RecentWorksSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -268,6 +270,17 @@ export interface RecentWork {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  heading: string;
+  content: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -324,6 +337,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'recent-works';
         value: number | RecentWork;
+      } | null)
+    | ({
+        relationTo: 'about';
+        value: number | About;
       } | null)
     | ({
         relationTo: 'users';
@@ -512,6 +529,16 @@ export interface RecentWorksSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  heading?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -7,6 +7,10 @@ import ContactForm from "./ContactForm";
 export default function MetricSection() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const currentYear = new Date().getFullYear();
+  const yearsOfExperience = currentYear - 2018; // 2026 - 2018 = 8
+  const hoursOfContent = 300 + (currentYear - 2026) * 100; // 300 in 2026, +100 per year
+  const projectsCompleted = 25 + (currentYear - 2026) * 5; // 25 in 2026, +5 per year
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,7 +44,7 @@ export default function MetricSection() {
       className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto p-8 md:p-6 lg:p-10"
     >
       <Metric
-        number={300}
+        number={hoursOfContent}
         duration={2000}
         isPlused={true}
         shouldStart={isVisible}
@@ -48,7 +52,7 @@ export default function MetricSection() {
         description="Capturing compelling visual stories that showcase the artistry of modern dentistry."
       />
       <Metric
-        number={25}
+        number={projectsCompleted}
         duration={2500}
         isPlused={true}
         shouldStart={isVisible}
@@ -56,7 +60,7 @@ export default function MetricSection() {
         description="From chairside cases to comprehensive event documentation, each project is client-tailored to tell a unique story."
       />
       <Metric
-        number={8}
+        number={yearsOfExperience}
         duration={3000}
         isPlused={true}
         shouldStart={isVisible}

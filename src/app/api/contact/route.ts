@@ -22,10 +22,10 @@ export async function POST(request: NextRequest) {
 
     const mailOptions = {
       from: process.env.GMAIL_USER,
-      to: email,
+      to: "info@jtamdent.com.au",
       subject: `New Contact Form Submission from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
-      replyTo: process.env.GMAIL_USER,
+      replyTo: email,
     };
 
     await transporter.sendMail(mailOptions);

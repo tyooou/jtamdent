@@ -14,13 +14,14 @@ import Unsubscribe from "@/lib/collections/Unsubscribe";
 import Profile from "@/lib/collections/Profile";
 import LandingVideo from "@/lib/collections/LandingVideo";
 import RecentWorks from "@/lib/collections/RecentWorks";
+import About from "@/lib/collections/About";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
   editor: lexicalEditor({}),
-  collections: [Photos, Videos, Emails, Unsubscribe, Profile, LandingVideo, RecentWorks],
+  collections: [Photos, Videos, Emails, Unsubscribe, Profile, LandingVideo, RecentWorks, About],
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
