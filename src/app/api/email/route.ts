@@ -9,10 +9,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: "Email is required." }, { status: 400 });
     }
     const payload = await getPayload({ config });
-    await payload.create({
+    const existing = await payload.find({
       collection: "emails",
-      data: { email },
+      where: {
+        email: {
+          equals: email,
+        },
+      },
+      limit: 1,
     });
+
+    if (!existing.docs.length) {
+      await payload.create({
+        collection: "emails",
+        data: { email },
+      });
+    }
+
     return NextResponse.json({ message: "Email saved successfully!" }, { status: 200 });
   } catch (error) {
     console.error("Error saving email to Payload:", error);

@@ -3,3 +3,8 @@
 html {
   font-family: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
 }
+
+body.landing-loading .site-navbar-wrapper,
+body.landing-loading .site-navbar {
+  display: none;
+}

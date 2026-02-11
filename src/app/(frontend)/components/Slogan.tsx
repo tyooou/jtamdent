@@ -52,8 +52,8 @@ export default function Slogan() {
       <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-zinc-200 mt-0">
         Where every smile gets the spotlight.
       </h2>
-      <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto md:mx-0">
-              
+      <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto md:mx-0">
+          Want more information? Enter your email below for an free info and price brochure:
       </p>
       <form onSubmit={handleSubmit} className="max-w-2xl mx-auto md:mx-0 w-full">
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-2 w-full">

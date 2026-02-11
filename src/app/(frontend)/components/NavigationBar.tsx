@@ -85,9 +85,9 @@ export default function NavigationBar() {
   }, [mobileMenuOpen]);
 
   return (
-    <div className="h-16 md:h-28 bg-black">
+    <div className="site-navbar-wrapper h-16 md:h-28 bg-black">
       <nav
-        className="bg-black fixed top-0 left-0 w-full z-50 transition-all duration-200"
+        className="site-navbar bg-black fixed top-0 left-0 w-full z-50 transition-all duration-200"
         style={{
           width: "100%",
           height: scrolled ? "64px" : isMobile ? "64px" : "112px",

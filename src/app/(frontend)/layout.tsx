@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { interTight } from "./font";
 import "./globals.css";
 import PageTransition from "./components/PageTransition";
+import PersistentLandingVideo from "./components/PersistentLandingVideo";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
 
@@ -22,6 +23,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className={interTight.className + " selection:bg-transparent selection:text-inherit"}>
+        <PersistentLandingVideo />
         <PageTransition>{children}</PageTransition>
         <SpeedInsights/>
         <Analytics />

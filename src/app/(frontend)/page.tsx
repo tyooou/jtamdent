@@ -2,7 +2,6 @@
 
 import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
-import LandingVideo from "./components/LandingVideo";
 import Section from "./components/Section";
 import MetricSection from "./components/MetricSection";
 import RecentWorksSection from "./components/RecentWorksSection";
@@ -29,7 +28,6 @@ export default function Home() {
   return (
     <div>
       <NavigationBar />
-      <LandingVideo />
       <Section>
         <div id="about">
           <AboutSection />

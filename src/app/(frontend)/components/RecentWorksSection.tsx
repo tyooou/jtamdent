@@ -290,23 +290,23 @@ export default function RecentWorksSection() {
             <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           </button>
           <div
-            className="relative w-full max-w-3xl lg:max-w-4xl rounded-xl shadow-xl p-0 text-center mx-2 sm:mx-4 overflow-hidden flex flex-col"
+            className="relative w-auto max-w-[90vw] max-h-[80vh] rounded-xl p-0 text-center mx-2 sm:mx-4 overflow-hidden flex flex-col"
             onClick={e => e.stopPropagation()}
           >
-            <button
-              onClick={() => setModalProject(null)}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white bg-black bg-opacity-80 p-1.5 sm:p-2 rounded-full hover:bg-red-400 hover:text-white hover:bg-opacity-100 transition-all z-20 focus:outline-none focus:ring-2 focus:ring-red-400 cursor-pointer"
-              aria-label="Close modal"
-            >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
             {/* Media fills modal with natural aspect ratio */}
-            <div className="relative w-full flex items-center justify-center inset-0" style={{ minHeight: '500px', minWidth: '200px' }}>
+            <div className="relative w-auto max-w-[90vw] max-h-[80vh] flex items-center justify-center inset-0">
+              <button
+                onClick={() => setModalProject(null)}
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white bg-black bg-opacity-80 p-1.5 sm:p-2 rounded-full hover:bg-red-400 hover:text-white hover:bg-opacity-100 transition-all z-20 focus:outline-none focus:ring-2 focus:ring-red-400 cursor-pointer"
+                aria-label="Close modal"
+              >
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
               {modalProject && modalProject.url && (
                 modalProject.mimeType?.startsWith('video') ? (
                   <video
                     src={modalProject.url}
-                    className="w-full h-full object-contain"
+                    className="max-h-[80vh] max-w-[90vw] w-auto h-auto object-contain"
                     controls
                     autoPlay
                     muted
@@ -315,17 +315,24 @@ export default function RecentWorksSection() {
                     style={{ background: '#000', maxHeight: '80vh' }}
                   />
                 ) : (
-                  <Image
+                  <img
                     src={modalProject.url}
                     alt={modalProject.title}
-                    fill
-                    className="object-contain select-none"
+                    className="max-h-[80vh] max-w-[90vw] w-auto h-auto object-contain select-none"
                     onContextMenu={(e) => e.preventDefault()}
                     onDragStart={(e) => e.preventDefault()}
                     draggable={false}
                   />
                 )
               )}
+              <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-4 sm:px-6 py-4 sm:py-5 text-left">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
+                  {modalProject.title}
+                </h3>
+                <p className="text-sm sm:text-base text-white/80 leading-relaxed">
+                  {modalProject.description}
+                </p>
+              </div>
             </div>
           </div>
         </div>
