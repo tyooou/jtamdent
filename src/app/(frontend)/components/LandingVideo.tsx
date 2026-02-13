@@ -183,17 +183,14 @@ export default function LandingVideo({ isActive = true }: LandingVideoProps) {
           0% {
             opacity: 0.35;
             transform: scale(0.98);
-            letter-spacing: 0.2em;
           }
           50% {
             opacity: 1;
             transform: scale(1.02);
-            letter-spacing: 0.35em;
           }
           100% {
             opacity: 0.35;
             transform: scale(0.98);
-            letter-spacing: 0.2em;
           }
         }
       `}</style>

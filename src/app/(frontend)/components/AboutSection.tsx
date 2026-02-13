@@ -21,14 +21,17 @@ export default function AboutSection() {
   useEffect(() => {
     const fetchAboutContent = async () => {
       try {
-        const response = await fetch("/api/about");
+        const response = await fetch("/api/about?limit=1");
         if (response.ok) {
           const data = await response.json();
-          if (data.heading && data.content) {
-            setAboutContent({
-              heading: data.heading,
-              content: data.content
-            });
+          if (data.docs && data.docs.length > 0) {
+            const aboutDoc = data.docs[0];
+            if (aboutDoc.heading && aboutDoc.content) {
+              setAboutContent({
+                heading: aboutDoc.heading,
+                content: aboutDoc.content
+              });
+            }
           }
         }
       } catch (error) {

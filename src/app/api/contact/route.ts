@@ -12,6 +12,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Debug: Check if env vars are set
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+      console.error("Missing GMAIL_USER or GMAIL_PASS environment variables");
+      return NextResponse.json(
+        { message: "Email configuration is incomplete. Contact administrator." },
+        { status: 500 }
+      );
+    }
+
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -35,9 +44,10 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error sending email:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("Error sending email:", errorMessage);
     return NextResponse.json(
-      { message: "Failed to send message." },
+      { message: `Failed to send message: ${errorMessage}` },
       { status: 500 }
     );
   }
