@@ -10,6 +10,7 @@ export default function ContactForm() {
     message: "",
   });
   const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -23,6 +24,7 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -38,12 +40,25 @@ export default function ContactForm() {
       }
     } catch (err) {
       alert(`Failed to send message. Please try again later. ${err}`);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <AnimatePresence>
+        {isSubmitting && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="w-full text-center py-2 px-4 rounded-md bg-blue-100 text-blue-800 font-medium border border-blue-300 mb-2"
+          >
+            Sending your message...
+          </motion.div>
+        )}
         {sent && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -116,9 +131,10 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="bg-black text-white py-2 px-4 rounded-2xl hover:bg-gray-800 transition-colors font-medium text-base cursor-pointer"
+        disabled={isSubmitting}
+        className="bg-black text-white py-2 px-4 rounded-2xl hover:bg-gray-800 transition-colors font-medium text-base cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Send Message
+        {isSubmitting ? "Sending..." : "Send Message"}
       </button>
     </form>
   );
