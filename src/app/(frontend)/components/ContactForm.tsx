@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -42,11 +43,19 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {sent && (
-        <div className="w-full text-center py-2 px-4 rounded-md bg-green-100 text-green-800 font-medium border border-green-300 mb-2 animate-fade-in">
-          Thank you! Your message has been sent.
-        </div>
-      )}
+      <AnimatePresence>
+        {sent && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="w-full text-center py-2 px-4 rounded-md bg-green-100 text-green-800 font-medium border border-green-300 mb-2"
+          >
+            Thank you! Your message has been sent.
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div>
         <label
