@@ -65,7 +65,7 @@ export default function Slogan() {
         Where every smile gets the spotlight.
       </h2>
       <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto md:mx-0">
-          Want more information? Enter your email below for an free info and price brochure:
+          Want more information? Enter your email below for a free info and price brochure:
       </p>
       <form onSubmit={handleSubmit} className="max-w-2xl mx-auto md:mx-0 w-full">
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-2 w-full">

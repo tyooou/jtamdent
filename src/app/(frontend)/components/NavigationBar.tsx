@@ -23,6 +23,7 @@ export default function NavigationBar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isSmallHeight, setIsSmallHeight] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -58,6 +59,7 @@ export default function NavigationBar() {
     
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
+      setIsSmallHeight(window.innerHeight < 700);
 
       if (window.innerWidth >= 768) {
         setMobileMenuOpen(false);
@@ -90,7 +92,7 @@ export default function NavigationBar() {
         className="site-navbar bg-black fixed top-0 left-0 w-full z-50 transition-all duration-200"
         style={{
           width: "100%",
-          height: scrolled ? "64px" : isMobile ? "64px" : "112px",
+          height: scrolled || isMobile || isSmallHeight ? "64px" : "112px",
           transition: "height 0.2s",
         }}
       >
