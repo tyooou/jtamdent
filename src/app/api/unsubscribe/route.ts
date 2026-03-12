@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@payload-config";
+import nodemailer from "nodemailer";
 
 export async function POST(request: NextRequest) {
   try {
@@ -54,6 +55,41 @@ export async function POST(request: NextRequest) {
         reason: reason || "",
       },
     });
+
+    // Send unsubscribe confirmation email
+    if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS,
+          },
+        });
+
+        const mailOptions = {
+          from: process.env.GMAIL_USER,
+          to: email,
+          subject: "Unsubscribe Confirmation",
+          text: `You have been successfully unsubscribed from our mailing list. If you did not request this, please contact us at info@jtamdent.com.au.`,
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        // Send notification email to self
+        const notificationOptions = {
+          from: process.env.GMAIL_USER,
+          to: "info@jtamdent.com.au",
+          subject: `Unsubscribe Notification - ${email}`,
+          text: `${email} has unsubscribed from the mailing list.${reason ? `\n\nReason: ${reason}` : ""}`,
+        };
+
+        await transporter.sendMail(notificationOptions);
+      } catch (emailError) {
+        console.error("Error sending unsubscribe emails:", emailError);
+        // Continue even if email fails
+      }
+    }
 
     return NextResponse.json(
       { message: "Successfully unsubscribed", id: result.id },
