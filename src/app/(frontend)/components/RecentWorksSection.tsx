@@ -211,10 +211,10 @@ export default function RecentWorksSection() {
           <button
             key={i}
             onClick={() => setCurrentIndex(i)}
-            className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 mx-1 ${
+            className={`rounded-full transition-all duration-300 mx-1 ${
               i === currentIndex
-                ? "bg-black scale-110"
-                : "bg-gray-300 hover:bg-gray-400 active:bg-gray-500 cursor-pointer"
+                ? "bg-black w-4 h-4 md:w-5 md:h-5"
+                : "bg-gray-300 hover:bg-gray-400 active:bg-gray-500 cursor-pointer w-3 h-3 md:w-4 md:h-4"
             }`}
             aria-label={`Go to project ${i + 1}`}
           />

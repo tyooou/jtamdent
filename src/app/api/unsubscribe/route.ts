@@ -76,7 +76,6 @@ export async function POST(request: NextRequest) {
 
         await transporter.sendMail(mailOptions);
 
-        // Send notification email to self
         const notificationOptions = {
           from: process.env.GMAIL_USER,
           to: "info@jtamdent.com.au",
@@ -87,7 +86,6 @@ export async function POST(request: NextRequest) {
         await transporter.sendMail(notificationOptions);
       } catch (emailError) {
         console.error("Error sending unsubscribe emails:", emailError);
-        // Continue even if email fails
       }
     }
 
